@@ -21,10 +21,8 @@
         body { background-color: var(--bg-color); margin: 0; padding: 25px 15px; color: var(--text-main); line-height: 1.6; }
         .container { max-width: 850px; margin: 0 auto; background: var(--card-bg); padding: 35px 30px; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.07); }
         
+        /* تصميم الهيدر (بدون شعار) */
         .header { text-align: center; margin-bottom: 30px; border-bottom: 2px dashed #e2e8f0; padding-bottom: 25px; }
-        .logo-container { margin-bottom: 15px; }
-        .logo { max-width: 140px; height: auto; transition: transform 0.3s ease; }
-        .logo:hover { transform: scale(1.03); }
         h1 { color: var(--primary-color); font-size: 24px; margin: 10px 0 6px 0; font-weight: 800; }
         .subtitle { color: var(--secondary-color); font-size: 16px; margin: 0; font-weight: 600; }
         
@@ -49,7 +47,6 @@
         @media (max-width: 600px) {
             .container { padding: 20px 15px; }
             h1 { font-size: 20px; }
-            .logo { max-width: 110px; }
             .search-box { padding: 14px 16px; font-size: 15px; }
         }
     </style>
@@ -57,8 +54,6 @@
 <body>
     <div class="container">
         <div class="header">
-            <div class="logo-container">
-<img src="https://raw.githubusercontent.com/PKief/ju-logo/main/ju-logo.png" alt="شعار الجامعة الأردنية" class="logo">            </div>
             <h1>المساعد الذكي لبرنامج الدبلوم العالي لإعداد المعلمين</h1>
             <p class="subtitle">الجامعة الأردنية – فرع العقبة</p>
         </div>
@@ -168,7 +163,7 @@
         // تهيئة محرك البحث الذكي Fuse.js
         const fuseOptions = {
             keys: ['q', 'a'],
-            threshold: 0.4, // درجة التسامح مع الأخطاء الإملائية
+            threshold: 0.4,
             distance: 100,
             ignoreLocation: true
         };
@@ -191,7 +186,6 @@
 
             placeholder.style.display = 'none';
             
-            // تنفيذ البحث المرن الذكي
             const results = fuse.search(input);
 
             if (results.length === 0) {
