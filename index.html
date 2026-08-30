@@ -3,41 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>المساعد الذكي لبرنامج الدبلوم العالي لإعداد المعلمين - الجامعة الأردنية فرع العقبة</title>
+    <title>المساعد الذكي - الدبلوم العالي لإعداد المعلمين | الجامعة الأردنية العقبة</title>
+    <!-- تضمين مكتبة Fuse.js للبحث الذكي والمرن -->
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
     <style>
-        * { box-sizing: border-box; font-family: system-ui, -apple-system, sans-serif; }
-        body { background-color: #f0f4f8; margin: 0; padding: 20px; color: #2d3748; }
-        .container { max-width: 800px; margin: 0 auto; background: #ffffff; padding: 30px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
-        .header { text-align: center; margin-bottom: 25px; border-bottom: 2px solid #edf2f7; padding-bottom: 15px; }
-        h1 { color: #1a365d; font-size: 22px; margin-bottom: 8px; line-height: 1.4; }
-        .subtitle { color: #4a5568; font-size: 15px; margin: 0; }
-        .search-container { position: sticky; top: 10px; background: #fff; padding: 10px 0; z-index: 10; }
-        .search-box { width: 100%; padding: 16px 20px; font-size: 16px; border: 2px solid #3182ce; border-radius: 10px; outline: none; transition: all 0.2s; box-shadow: 0 4px 6px rgba(49,130,206,0.1); }
-        .search-box:focus { border-color: #2b6cb0; box-shadow: 0 4px 12px rgba(49,130,206,0.25); }
-        .stats { margin: 15px 0; font-size: 14px; color: #718096; text-align: left; display: none; }
-        .faq-item { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; margin-bottom: 12px; padding: 18px; }
-        .question { font-weight: 700; color: #2c5282; font-size: 16px; margin-bottom: 8px; display: flex; align-items: flex-start; gap: 8px; }
-        .answer { font-size: 15px; color: #4a5568; line-height: 1.7; white-space: pre-line; padding-right: 24px; }
-        .badge { background: #ebf8ff; color: #2b6cb0; padding: 2px 8px; border-radius: 4px; font-size: 13px; font-weight: bold; }
-        .no-result { display: none; text-align: center; color: #e53e3e; padding: 30px; font-size: 16px; background: #fff5f5; border-radius: 8px; }
-        .placeholder-text { text-align: center; color: #a0aec0; padding: 40px 20px; font-size: 16px; }
+        :root {
+            --primary-color: #1a365d;
+            --secondary-color: #2b6cb0;
+            --accent-color: #3182ce;
+            --bg-color: #f4f7fa;
+            --card-bg: #ffffff;
+            --text-main: #2d3748;
+            --text-muted: #718096;
+        }
+
+        * { box-sizing: border-box; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+        body { background-color: var(--bg-color); margin: 0; padding: 25px 15px; color: var(--text-main); line-height: 1.6; }
+        .container { max-width: 850px; margin: 0 auto; background: var(--card-bg); padding: 35px 30px; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.07); }
+        
+        /* تصميم الهيدر والشعار */
+        .header { text-align: center; margin-bottom: 30px; border-bottom: 2px dashed #e2e8f0; padding-bottom: 25px; }
+        .logo-container { margin-bottom: 15px; }
+        .logo { max-width: 140px; height: auto; transition: transform 0.3s ease; }
+        .logo:hover { transform: scale(1.03); }
+        h1 { color: var(--primary-color); font-size: 24px; margin: 10px 0 6px 0; font-weight: 800; }
+        .subtitle { color: var(--secondary-color); font-size: 16px; margin: 0; font-weight: 600; }
+        
+        /* منطقة البحث */
+        .search-container { position: sticky; top: 15px; background: var(--card-bg); padding: 10px 0; z-index: 100; }
+        .search-box { width: 100%; padding: 18px 22px; font-size: 16px; border: 2px solid #cbd5e0; border-radius: 12px; outline: none; transition: all 0.3s ease; background-color: #f8fafc; }
+        .search-box:focus { border-color: var(--accent-color); background-color: #fff; box-shadow: 0 6px 20px rgba(49, 130, 206, 0.2); }
+        
+        /* مؤشرات ورسائل الصفحة */
+        .stats { margin: 15px 5px; font-size: 14px; color: var(--text-muted); text-align: right; display: none; font-weight: 600; }
+        .placeholder-card { text-align: center; color: var(--text-muted); padding: 50px 20px; background: #f8fafc; border-radius: 12px; border: 2px dashed #e2e8f0; margin-top: 20px; }
+        .placeholder-icon { font-size: 40px; margin-bottom: 10px; display: block; }
+        .no-result { display: none; text-align: center; color: #c53030; padding: 35px; font-size: 16px; background: #fff5f5; border-radius: 12px; border: 1px solid #feb2b2; margin-top: 20px; }
+        
+        /* عناصر الأسئلة والأجوبة */
+        .faq-item { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; margin-bottom: 16px; padding: 22px; box-shadow: 0 4px 10px rgba(0,0,0,0.02); transition: all 0.2s ease; }
+        .faq-item:hover { border-color: #cbd5e0; box-shadow: 0 6px 15px rgba(0,0,0,0.05); }
+        .question { font-weight: 700; color: var(--primary-color); font-size: 17px; margin-bottom: 12px; display: flex; align-items: flex-start; gap: 10px; }
+        .answer { font-size: 15px; color: #4a5568; line-height: 1.8; white-space: pre-line; padding-right: 28px; }
+        .badge { background: #ebf8ff; color: var(--secondary-color); padding: 3px 10px; border-radius: 6px; font-size: 13px; font-weight: 700; flex-shrink: 0; }
+        
+        @media (max-width: 600px) {
+            .container { padding: 20px 15px; }
+            h1 { font-size: 20px; }
+            .logo { max-width: 110px; }
+            .search-box { padding: 14px 16px; font-size: 15px; }
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
+            <div class="logo-container">
+                <!-- شعار الجامعة الأردنية -->
+                <img src="https://upload.wikimedia.org/wikipedia/ar/b/b2/University_of_Jordan_Logo.svg" alt="شعار الجامعة الأردنية" class="logo">
+            </div>
             <h1>المساعد الذكي لبرنامج الدبلوم العالي لإعداد المعلمين</h1>
             <p class="subtitle">الجامعة الأردنية – فرع العقبة</p>
         </div>
 
         <div class="search-container">
-            <input type="text" id="searchInput" class="search-box" placeholder="اكتب سؤالك هنا بحثاً عن الإجابة (مثال: الساعات، التعيين، التدريب الميداني)..." onkeyup="searchFAQ()">
+            <input type="text" id="searchInput" class="search-box" placeholder="اكتب سؤالك أو الكلمة المفتاحية (مثال: الساعات، التعيين، التدريب الميداني)..." onkeyup="searchFAQ()">
         </div>
 
         <div id="stats" class="stats"></div>
-        <div id="placeholder" class="placeholder-text">🔍 اكتب سؤالك أو الكلمة المفتاحية في الخانة أعلاه لعرض الإجابة.</div>
+        <div id="placeholder" class="placeholder-card">
+            <span class="placeholder-icon">🔍</span>
+            <strong>أهلاً بك في المساعد الذكي</strong><br>
+            ابتدئ بكتابة سؤالك أو أي كلمة مفتاحية في الخانة أعلاه لعرض الإجابات فوراً.
+        </div>
         <div id="faqContainer"></div>
-        <div id="noResult" class="no-result">لم يتم العثور على إجابة مطابقة لبحثك. جرب كتابة كلمات أخرى.</div>
+        <div id="noResult" class="no-result">لم يتم العثور على إجابة مطابقة لبحثك. جرب كتابة صياغة أخرى أو كلمات مفتاحية بسيطة.</div>
     </div>
 
     <script>
@@ -103,7 +143,7 @@
             { id: 59, q: "من المسؤول عن متابعة الطالب أثناء التدريب الميداني؟", a: "يتولى متابعة الطالب فريق التدريب الميداني، بما يشمل المشرف الأكاديمي والمشرف المدرسي/المعلم المتعاون، وفق الأدوار والمسؤوليات المحددة في دليل التدريب الميداني." },
             { id: 60, q: "هل تتم زيارة الطالب في المدرسة من أعضاء هيئة التدريس؟", a: "نعم، تتم متابعة الطالب ميدانياً من خلال الزيارات أو آليات المتابعة المعتمدة للتحقق من تقدمه وتقديم التغذية الراجعة اللازمة." },
             { id: 61, q: "كيف يتم تقييم أداء الطالب في التدريب الميداني؟", a: "يتم تقييم الطالب باستخدام أدوات ومعايير معتمدة، وتشمل -بحسب طبيعة التدريب- التخطيط للتدريس، والتنفيذ، وإدارة الصف، والتقويم، والمهنية، والتأمل في الممارسة." },
-            { id: 62, q: "هل تؤثر أداء الطالب في التدريب الميداني على نجاحه وتخرجه؟", a: "نعم. إذا كان التدريب الميداني متطلباً للتخرج، فإن اجتيازه بنجاح يُعد جزءاً أساسياً من استكمال متطلبات البرنامج." },
+            { id: 62, q: "هل يؤثر أداء الطالب في التدريب الميداني على نجاحه وتخرجه؟", a: "نعم. إذا كان التدريب الميداني متطلباً للتخرج، فإن اجتيازه بنجاح يُعد جزءاً أساسياً من استكمال متطلبات البرنامج." },
             { id: 63, q: "ماذا يحدث إذا واجه الطالب مشكلة أثناء التدريب الميداني؟", a: "ينبغي على الطالب إبلاغ المشرف الأكاديمي أو الجهة المسؤولة عن التدريب الميداني في أقرب وقت، ليتم التعامل مع المشكلة وفق الإجراءات المعتمدة." },
             { id: 64, q: "هل يمكن تغيير المدرسة أثناء فترة التدريب الميداني؟", a: "لا يتم تغيير المدرسة بصورة فردية، وإنما يخضع أي تغيير للضرورة والمبررات والإجراءات والموافقات المعتمدة من البرنامج والجهة المشرفة على التدريب." },
             { id: 65, q: "هل التدريب الميداني متاح في المدارس الحكومية والخاصة؟", a: "يتم التدريب في المدارس التي يعتمدها البرنامج بالتنسيق مع الجهات التعليمية ذات العلاقة، وفق الاتفاقيات والإجراءات المعتمدة." },
@@ -128,8 +168,17 @@
             { id: 84, q: "هل يمكن للطالب متابعة الدراسات العليا بعد الحصول على الدبلوم؟", a: "الحصول على الدبلوم العالي لا يمنع من التقدم إلى برامج الدراسات العليا من حيث المبدأ، ولكن القبول في برامج الماجستير أو الدكتوراه يخضع إلى شروط القبول الخاصة بالبرنامج والجامعة، بما في ذلك المؤهلات والمعدلات وأي متطلبات أخرى." }
         ];
 
+        // تهيئة محرك البحث الذكي Fuse.js
+        const fuseOptions = {
+            keys: ['q', 'a'],
+            threshold: 0.4, // درجة التسامح مع الأخطاء الإملائية
+            distance: 100,
+            ignoreLocation: true
+        };
+        const fuse = new Fuse(faqs, fuseOptions);
+
         function searchFAQ() {
-            const input = document.getElementById('searchInput').value.toLowerCase().trim();
+            const input = document.getElementById('searchInput').value.trim();
             const container = document.getElementById('faqContainer');
             const placeholder = document.getElementById('placeholder');
             const noResult = document.getElementById('noResult');
@@ -145,24 +194,22 @@
 
             placeholder.style.display = 'none';
             
-            const filtered = faqs.filter(item => 
-                item.q.toLowerCase().includes(input) || 
-                item.a.toLowerCase().includes(input)
-            );
+            // تنفيذ البحث المرن الذكي
+            const results = fuse.search(input);
 
-            if (filtered.length === 0) {
+            if (results.length === 0) {
                 container.innerHTML = '';
                 noResult.style.display = 'block';
                 stats.style.display = 'none';
             } else {
                 noResult.style.display = 'none';
                 stats.style.display = 'block';
-                stats.textContent = `نتائج البحث المطابقة: (${filtered.length})`;
+                stats.textContent = `عدد النتائج المطابقة: (${results.length})`;
                 
-                container.innerHTML = filtered.map(item => `
+                container.innerHTML = results.map(res => `
                     <div class="faq-item">
-                        <div class="question"><span class="badge">سؤال #${item.id}</span> ${item.q}</div>
-                        <div class="answer">${item.a}</div>
+                        <div class="question"><span class="badge">سؤال #${res.item.id}</span> ${res.item.q}</div>
+                        <div class="answer">${res.item.a}</div>
                     </div>
                 `).join('');
             }
