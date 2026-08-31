@@ -19,11 +19,11 @@
             --primary-light: #1e3a8a;
             --secondary-color: #d97706;
             --accent-blue: #2563eb;
-            --card-bg: rgba(255, 255, 255, 0.96); /* خلفية بيضاء مع نسبة شفافة بسيطة */
+            --card-bg: rgba(255, 255, 255, 0.92); /* خلفية نصف شفافة لبطاقة المحتوى لتظهر الخلفية بوضوح */
             --text-main: #1e293b;
             --text-muted: #64748b;
             --border-color: #e2e8f0;
-            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 20px 30px rgba(0, 0, 0, 0.35);
         }
 
         * { 
@@ -33,9 +33,9 @@
             padding: 0;
         }
 
-        /* إضافة صورة الخلفية مع طبقة تظليل داكنة لضمان وضوح المحتوى فوقها */
+        /* تحسين إعدادات الخلفية لضمان الوضوح العالي */
         body { 
-            background: linear-gradient(rgba(15, 23, 42, 0.75), rgba(15, 23, 42, 0.75)), 
+            background: linear-gradient(rgba(15, 23, 42, 0.35), rgba(15, 23, 42, 0.35)), 
                         url('bg.jpg') no-repeat center center fixed;
             background-size: cover;
             min-height: 100vh;
@@ -47,17 +47,17 @@
             align-items: center;
         }
 
-        /* الحاوية الخارجية لإضافة الحواف الملونة المتدرجة والمضيئة */
+        /* إطار خارجي شفاف مع تدرج مضيء حول المحتوى */
         .gradient-border-wrapper {
             position: relative;
             max-width: 920px;
             width: 100%;
             border-radius: 28px;
             padding: 4px;
-            background: linear-gradient(135deg, #2563eb, #d97706, #3b82f6, #f59e0b);
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.8), rgba(217, 119, 6, 0.8), rgba(59, 130, 246, 0.8));
             background-size: 300% 300%;
             animation: borderGradient 8s ease infinite;
-            box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
         }
 
         @keyframes borderGradient {
@@ -68,13 +68,14 @@
 
         .container { 
             background: var(--card-bg); 
-            backdrop-filter: blur(10px); /* إضافة تأثير زجاجي لزيادة التباين والوضوح */
+            backdrop-filter: blur(12px); /* تأثير ضبابي خفيف خلف النص للمحافظة على التباين والوضوح */
+            -webkit-backdrop-filter: blur(12px);
             padding: 40px; 
             border-radius: 24px; 
             box-shadow: var(--shadow-lg); 
         }
         
-        /* الهيدر والشعارات بحجم أكبر */
+        /* الهيدر والشعارات */
         .header { 
             text-align: center; 
             margin-bottom: 35px; 
@@ -107,17 +108,16 @@
             background: #ffffff;
             padding: 14px 22px;
             border-radius: 20px;
-            box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
             border: 1px solid var(--border-color);
             transition: all 0.3s ease;
         }
 
         .logo-wrapper:hover {
             transform: translateY(-4px);
-            box-shadow: 0 12px 24px rgba(0,0,0,0.18);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
         }
 
-        /* تكبير حجم الصور للشعارات */
         .logo-img { 
             max-height: 130px; 
             width: auto; 
@@ -152,15 +152,16 @@
             border: 1px solid #e2e8f0;
         }
         
-        /* منطقة البحث وتضمين الروبوت */
+        /* منطقة البحث */
         .search-container { 
             position: sticky; 
             top: 15px; 
-            background: rgba(255, 255, 255, 0.98);
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(8px);
             padding: 15px 0; 
             z-index: 100; 
             margin-bottom: 20px;
+            border-radius: 16px;
         }
 
         .search-wrapper {
@@ -188,7 +189,6 @@
             box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15); 
         }
 
-        /* صورة/أيقونة الروبوت والعبارة بجانبه */
         .robot-badge {
             position: absolute;
             left: 12px;
@@ -209,7 +209,7 @@
             font-size: 20px;
         }
         
-        /* مؤشرات ورسائل الواجهة */
+        /* الرسائل والأسئلة */
         .stats { 
             margin: 10px 5px 20px 5px; 
             font-size: 14px; 
@@ -223,7 +223,7 @@
             text-align: center; 
             color: var(--text-muted); 
             padding: 45px 20px; 
-            background: #f8fafc; 
+            background: rgba(248, 250, 252, 0.9); 
             border-radius: 16px; 
             border: 2px dashed #cbd5e0; 
             margin-top: 10px; 
@@ -242,19 +242,19 @@
             color: #991b1b; 
             padding: 30px; 
             font-size: 16px; 
-            background: #fef2f2; 
+            background: rgba(254, 242, 242, 0.95); 
             border-radius: 16px; 
             border: 1px solid #fecaca; 
             margin-top: 10px; 
         }
 
         .faq-item { 
-            background: #ffffff; 
+            background: rgba(255, 255, 255, 0.95); 
             border: 1px solid var(--border-color); 
             border-radius: 16px; 
             margin-bottom: 18px; 
             padding: 24px; 
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.03); 
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); 
             transition: all 0.25s ease; 
             position: relative;
             overflow: hidden;
@@ -273,7 +273,7 @@
         .faq-item:hover { 
             border-color: #cbd5e0; 
             transform: translateY(-2px);
-            box-shadow: 0 10px 20px -5px rgba(0,0,0,0.08); 
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); 
         }
 
         .question { 
@@ -345,10 +345,8 @@
 </head>
 <body>
 
-    <!-- الإطار الخارجي الملون والمتدرج -->
     <div class="gradient-border-wrapper">
         <div class="container">
-            <!-- قسم الشعارين والعنوان -->
             <div class="header">
                 <div class="logos-container">
                     <div class="logo-wrapper">
@@ -363,7 +361,6 @@
                 <div class="university-badge">كلية اللغات</div>
             </div>
 
-            <!-- خانة البحث مع الروبوت وعبارة اسألني -->
             <div class="search-container">
                 <div class="search-wrapper">
                     <input type="text" id="searchInput" class="search-box" placeholder="ابحث عن أي سؤال أو كلمة مفتاحية (مثال: مدير البرنامج، الموقع، الرابط الرسمي)..." onkeyup="searchFAQ()">
@@ -376,7 +373,6 @@
 
             <div id="stats" class="stats"></div>
             
-            <!-- الكلمات الترحيبية -->
             <div id="placeholder" class="placeholder-card">
                 <span class="placeholder-icon">💡</span>
                 <strong>مرحباً بك في المساعد الذكي لبرنامج الدبلوم العالي</strong><br>
@@ -411,7 +407,6 @@
             { id: 15, q: "هل يتضمن البرنامج تدريباً ميدانياً وهل هو إلزامي؟", a: "نعم، يخصص 50% من الوقت للتطبيق والتدريب الميداني وهو متطلب إجباري وأساسي للتخرج." }
         ];
 
-        /* إعدادات البحث الحرفي الدقيق */
         const fuseOptions = {
             keys: [
                 { name: 'q', weight: 0.8 },
