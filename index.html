@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -71,19 +70,23 @@
             overflow: hidden;
         }
         
-        /* الهيدر: صورة ساطعة مع إبراز الشعارات وتكبيرها */
+        /* الهيدر: صورة ساطعة مع وضع الشعارات في الزوايا */
         .header { 
             text-align: center; 
-            padding: 45px 20px 35px 20px;
+            padding: 40px 20px 35px 20px;
             position: relative;
-            /* تخفيف الشفافية بشكل كبير لتبدو الصورة واضحة وحية */
-            background-image: linear-gradient(180deg, rgba(13, 35, 58, 0.35) 0%, rgba(13, 35, 58, 0.65) 100%), url('2.jpg');
+            background-image: linear-gradient(180deg, rgba(13, 35, 58, 0.3) 0%, rgba(13, 35, 58, 0.65) 100%), url('2.jpg');
             background-repeat: no-repeat;
             background-position: center 35%;
             background-size: cover;
             color: #ffffff;
             border-top-left-radius: 24px;
             border-top-right-radius: 24px;
+            min-height: 220px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
 
         .header::after {
@@ -98,70 +101,73 @@
             border-radius: 2px;
         }
 
-        .logos-container { 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            gap: 30px; 
-            margin-bottom: 25px; 
-            flex-wrap: wrap; 
-        }
-
-        .logo-wrapper {
+        /* حاويات الشعارات في الزوايا العليا */
+        .header-logo-right,
+        .header-logo-left {
+            position: absolute;
+            top: 20px;
             background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            padding: 16px 28px;
-            border-radius: 22px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            padding: 10px 16px;
+            border-radius: 16px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
             border: 2px solid rgba(255, 255, 255, 0.8);
             transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            z-index: 10;
         }
 
-        .logo-wrapper:hover {
-            transform: translateY(-4px);
+        .header-logo-right {
+            right: 20px;
+        }
+
+        .header-logo-left {
+            left: 20px;
+        }
+
+        .header-logo-right:hover,
+        .header-logo-left:hover {
+            transform: translateY(-2px);
             background: #ffffff;
-            box-shadow: 0 14px 30px rgba(0, 0, 0, 0.3);
         }
 
-        /* تكبير الشعارات بشكل بارز */
         .logo-img { 
-            max-height: 150px; 
+            max-height: 85px; 
             width: auto; 
             object-fit: contain; 
             display: block;
         }
 
+        .header-content {
+            margin-top: 50px;
+        }
+
         h1 { 
             color: #ffffff; 
-            font-size: 28px; 
-            margin-top: 15px; 
+            font-size: 26px; 
             font-weight: 800; 
             text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8), 0 0 15px rgba(0,0,0,0.5);
         }
 
         .subtitle { 
             color: #fde047; 
-            font-size: 20px; 
-            margin-top: 8px; 
+            font-size: 19px; 
+            margin-top: 6px; 
             font-weight: 800; 
             text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
         }
 
         .university-badge {
             display: inline-block;
-            background: rgba(13, 35, 58, 0.75);
+            background: rgba(13, 35, 58, 0.8);
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
             color: #ffffff;
-            padding: 6px 22px;
+            padding: 5px 20px;
             border-radius: 20px;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 700;
-            margin-top: 14px;
+            margin-top: 12px;
             border: 1px solid rgba(255, 255, 255, 0.4);
             box-shadow: 0 4px 12px rgba(0,0,0,0.3);
         }
@@ -170,7 +176,6 @@
             padding: 30px 40px;
         }
         
-        /* منطقة البحث */
         .search-container { 
             position: sticky; 
             top: 15px; 
@@ -225,7 +230,6 @@
 
         .robot-icon { font-size: 20px; }
         
-        /* نتائج البحث */
         .stats { 
             margin: 10px 5px 20px 5px; 
             font-size: 14px; 
@@ -337,14 +341,24 @@
             color: var(--text-muted);
         }
 
+        /* التجاوب مع شاشات الهواتف */
         @media (max-width: 640px) {
             body { padding: 10px 5px; }
             .content-body { padding: 20px 15px; }
-            .header { padding: 30px 12px; }
-            .logo-wrapper { padding: 10px 16px; border-radius: 16px; }
-            .logo-img { max-height: 95px; }
-            h1 { font-size: 20px; }
-            .subtitle { font-size: 16px; }
+            .header { padding: 25px 10px; min-height: auto; }
+            .header-logo-right, .header-logo-left {
+                position: relative;
+                top: auto;
+                left: auto;
+                right: auto;
+                display: inline-block;
+                margin: 5px;
+                padding: 6px 10px;
+            }
+            .logo-img { max-height: 55px; }
+            .header-content { margin-top: 15px; }
+            h1 { font-size: 18px; }
+            .subtitle { font-size: 15px; }
             .search-box { padding: 14px 18px 14px 110px; font-size: 14px; }
             .robot-badge { font-size: 12px; padding: 4px 8px; }
             .faq-item { padding: 16px; }
@@ -358,19 +372,21 @@
     <div class="gradient-border-wrapper">
         <div class="container">
             
-            <!-- الهيدر المطور بألوان واضحة وشعارات بارزة -->
+            <!-- الهيدر المطور: الشعارات موقّعة في الزوايا العليا -->
             <div class="header">
-                <div class="logos-container">
-                    <div class="logo-wrapper">
-                        <img src="شعار.png" alt="شعار البرنامج" class="logo-img">
-                    </div>
-                    <div class="logo-wrapper">
-                        <img src="شعار وحدة الجودة.png" alt="شعار وحدة الجودة" class="logo-img">
-                    </div>
+                <div class="header-logo-right">
+                    <img src="شعار.png" alt="شعار البرنامج" class="logo-img">
                 </div>
-                <h1>المساعد الذكي لبرنامج الدبلوم العالي لإعداد المعلمين</h1>
-                <div class="subtitle">الجامعة الأردنية – فرع العقبة</div>
-                <div class="university-badge">كلية اللغات</div>
+                
+                <div class="header-logo-left">
+                    <img src="شعار وحدة الجودة.png" alt="شعار وحدة الجودة" class="logo-img">
+                </div>
+
+                <div class="header-content">
+                    <h1>المساعد الذكي لبرنامج الدبلوم العالي لإعداد المعلمين</h1>
+                    <div class="subtitle">الجامعة الأردنية – فرع العقبة</div>
+                    <div class="university-badge">كلية اللغات</div>
+                </div>
             </div>
 
             <div class="content-body">
