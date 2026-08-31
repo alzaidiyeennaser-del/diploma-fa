@@ -36,7 +36,7 @@
         body { 
             background: #0f172a;
             min-height: 100vh;
-            padding: 30px 15px; 
+            padding: 20px 10px; 
             color: var(--text-main); 
             line-height: 1.7; 
             display: flex;
@@ -49,7 +49,7 @@
             max-width: 960px;
             width: 100%;
             border-radius: 28px;
-            padding: 4px;
+            padding: 3px;
             background: linear-gradient(135deg, #2563eb, #d97706, #3b82f6, #f59e0b);
             background-size: 300% 300%;
             animation: borderGradient 8s ease infinite;
@@ -70,19 +70,19 @@
             overflow: hidden;
         }
         
-        /* الهيدر: صورة ساطعة مع وضع الشعارات في الزوايا */
+        /* الهيدر الرئيسي */
         .header { 
             text-align: center; 
-            padding: 40px 20px 35px 20px;
+            padding: 35px 20px 30px 20px;
             position: relative;
-            background-image: linear-gradient(180deg, rgba(13, 35, 58, 0.3) 0%, rgba(13, 35, 58, 0.65) 100%), url('2.jpg');
+            background-image: linear-gradient(180deg, rgba(13, 35, 58, 0.35) 0%, rgba(13, 35, 58, 0.7) 100%), url('2.jpg');
             background-repeat: no-repeat;
             background-position: center 35%;
             background-size: cover;
             color: #ffffff;
             border-top-left-radius: 24px;
             border-top-right-radius: 24px;
-            min-height: 220px;
+            min-height: 240px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -101,57 +101,54 @@
             border-radius: 2px;
         }
 
-        /* حاويات الشعارات في الزوايا العليا */
+        /* تثبيت الشعارات في الزاوية العليا اليمين واليسار */
         .header-logo-right,
         .header-logo-left {
             position: absolute;
-            top: 20px;
+            top: 15px;
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
-            padding: 10px 16px;
+            padding: 8px 14px;
             border-radius: 16px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
-            border: 2px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+            border: 1.5px solid rgba(255, 255, 255, 0.8);
             transition: all 0.3s ease;
             z-index: 10;
         }
 
         .header-logo-right {
-            right: 20px;
+            right: 18px;
         }
 
         .header-logo-left {
-            left: 20px;
-        }
-
-        .header-logo-right:hover,
-        .header-logo-left:hover {
-            transform: translateY(-2px);
-            background: #ffffff;
+            left: 18px;
         }
 
         .logo-img { 
-            max-height: 85px; 
+            max-height: 80px; 
             width: auto; 
             object-fit: contain; 
             display: block;
         }
 
         .header-content {
-            margin-top: 50px;
+            margin-top: 45px;
+            width: 100%;
+            padding: 0 10px;
         }
 
         h1 { 
             color: #ffffff; 
-            font-size: 26px; 
+            font-size: 25px; 
             font-weight: 800; 
-            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8), 0 0 15px rgba(0,0,0,0.5);
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8), 0 0 12px rgba(0,0,0,0.5);
+            line-height: 1.4;
         }
 
         .subtitle { 
             color: #fde047; 
-            font-size: 19px; 
+            font-size: 18px; 
             margin-top: 6px; 
             font-weight: 800; 
             text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
@@ -159,29 +156,29 @@
 
         .university-badge {
             display: inline-block;
-            background: rgba(13, 35, 58, 0.8);
+            background: rgba(13, 35, 58, 0.85);
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
             color: #ffffff;
-            padding: 5px 20px;
+            padding: 4px 18px;
             border-radius: 20px;
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 700;
-            margin-top: 12px;
+            margin-top: 10px;
             border: 1px solid rgba(255, 255, 255, 0.4);
             box-shadow: 0 4px 12px rgba(0,0,0,0.3);
         }
 
         .content-body {
-            padding: 30px 40px;
+            padding: 25px 30px;
         }
         
         .search-container { 
             position: sticky; 
-            top: 15px; 
+            top: 10px; 
             background: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(8px);
-            padding: 10px 0; 
+            padding: 8px 0; 
             z-index: 100; 
             margin-bottom: 20px;
             border-radius: 16px;
@@ -195,8 +192,8 @@
 
         .search-box { 
             width: 100%; 
-            padding: 18px 24px 18px 125px; 
-            font-size: 16px; 
+            padding: 16px 20px 16px 120px; 
+            font-size: 15px; 
             border: 2px solid var(--border-color); 
             border-radius: 16px; 
             outline: none; 
@@ -214,21 +211,21 @@
 
         .robot-badge {
             position: absolute;
-            left: 12px;
+            left: 10px;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 5px;
             background: #eff6ff;
             color: var(--primary-light);
-            padding: 6px 12px;
+            padding: 6px 10px;
             border-radius: 10px;
             border: 1px solid #dbeafe;
             font-weight: 700;
-            font-size: 14px;
+            font-size: 13px;
             pointer-events: none;
         }
 
-        .robot-icon { font-size: 20px; }
+        .robot-icon { font-size: 18px; }
         
         .stats { 
             margin: 10px 5px 20px 5px; 
@@ -242,7 +239,7 @@
         .placeholder-card { 
             text-align: center; 
             color: var(--text-muted); 
-            padding: 40px 20px; 
+            padding: 35px 20px; 
             background: #f8fafc; 
             border-radius: 16px; 
             border: 2px dashed #cbd5e0; 
@@ -250,8 +247,8 @@
         }
 
         .placeholder-icon { 
-            font-size: 40px; 
-            margin-bottom: 10px; 
+            font-size: 36px; 
+            margin-bottom: 8px; 
             display: block; 
             color: var(--secondary-color);
         }
@@ -260,8 +257,8 @@
             display: none; 
             text-align: center; 
             color: #991b1b; 
-            padding: 25px; 
-            font-size: 16px; 
+            padding: 20px; 
+            font-size: 15px; 
             background: #fef2f2; 
             border-radius: 16px; 
             border: 1px solid #fecaca; 
@@ -272,8 +269,8 @@
             background: #ffffff; 
             border: 1px solid var(--border-color); 
             border-radius: 16px; 
-            margin-bottom: 18px; 
-            padding: 22px; 
+            margin-bottom: 16px; 
+            padding: 20px; 
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03); 
             transition: all 0.25s ease; 
             position: relative;
@@ -298,20 +295,20 @@
         .question { 
             font-weight: 700; 
             color: var(--primary-color); 
-            font-size: 17.5px; 
-            margin-bottom: 12px; 
+            font-size: 16.5px; 
+            margin-bottom: 10px; 
             display: flex; 
             align-items: flex-start; 
-            gap: 12px; 
+            gap: 10px; 
             line-height: 1.5;
         }
 
         .answer { 
-            font-size: 15px; 
+            font-size: 14.5px; 
             color: #334155; 
             line-height: 1.8; 
             white-space: pre-line; 
-            padding-right: 32px; 
+            padding-right: 28px; 
         }
 
         .answer a { 
@@ -324,9 +321,9 @@
         .badge { 
             background: #eff6ff; 
             color: var(--primary-light); 
-            padding: 4px 10px; 
+            padding: 3px 8px; 
             border-radius: 8px; 
-            font-size: 12.5px; 
+            font-size: 12px; 
             font-weight: 800; 
             flex-shrink: 0; 
             border: 1px solid #dbeafe;
@@ -334,36 +331,44 @@
 
         .footer-note {
             text-align: center;
-            margin-top: 35px;
-            padding-top: 20px;
+            margin-top: 30px;
+            padding-top: 18px;
             border-top: 1px solid var(--border-color);
-            font-size: 13px;
+            font-size: 12.5px;
             color: var(--text-muted);
         }
 
-        /* التجاوب مع شاشات الهواتف */
+        /* تحسينات خاصة جداً بالهواتف الذكية */
         @media (max-width: 640px) {
-            body { padding: 10px 5px; }
-            .content-body { padding: 20px 15px; }
-            .header { padding: 25px 10px; min-height: auto; }
-            .header-logo-right, .header-logo-left {
-                position: relative;
-                top: auto;
-                left: auto;
-                right: auto;
-                display: inline-block;
-                margin: 5px;
-                padding: 6px 10px;
+            body { padding: 8px 4px; }
+            .content-body { padding: 18px 12px; }
+            .header { padding: 15px 10px 20px 10px; min-height: 190px; }
+            
+            /* ضبط الشعارات في الزاويتين العلييين للجوال بدون تشويه */
+            .header-logo-right {
+                right: 8px;
+                top: 8px;
+                padding: 4px 8px;
+                border-radius: 12px;
             }
-            .logo-img { max-height: 55px; }
-            .header-content { margin-top: 15px; }
-            h1 { font-size: 18px; }
-            .subtitle { font-size: 15px; }
-            .search-box { padding: 14px 18px 14px 110px; font-size: 14px; }
-            .robot-badge { font-size: 12px; padding: 4px 8px; }
-            .faq-item { padding: 16px; }
-            .question { font-size: 15.5px; }
-            .answer { font-size: 14px; padding-right: 0; }
+            .header-logo-left {
+                left: 8px;
+                top: 8px;
+                padding: 4px 8px;
+                border-radius: 12px;
+            }
+            .logo-img { max-height: 48px; }
+            
+            .header-content { margin-top: 48px; }
+            h1 { font-size: 17px; }
+            .subtitle { font-size: 14px; }
+            .university-badge { font-size: 12px; padding: 3px 12px; margin-top: 6px; }
+            
+            .search-box { padding: 12px 14px 12px 95px; font-size: 13.5px; border-radius: 12px; }
+            .robot-badge { font-size: 11px; padding: 3px 6px; left: 6px; }
+            .faq-item { padding: 14px; }
+            .question { font-size: 14.5px; gap: 6px; }
+            .answer { font-size: 13.5px; padding-right: 0; }
         }
     </style>
 </head>
@@ -372,12 +377,14 @@
     <div class="gradient-border-wrapper">
         <div class="container">
             
-            <!-- الهيدر المطور: الشعارات موقّعة في الزوايا العليا -->
+            <!-- الهيدر: شعار الجامعة يمين وشعار وحدة الجودة يسار -->
             <div class="header">
+                <!-- شعار الجامعة الأردنية يمين -->
                 <div class="header-logo-right">
-                    <img src="شعار.png" alt="شعار البرنامج" class="logo-img">
+                    <img src="شعار.png" alt="شعار الجامعة الأردنية" class="logo-img">
                 </div>
                 
+                <!-- شعار وحدة الجودة يسار -->
                 <div class="header-logo-left">
                     <img src="شعار وحدة الجودة.png" alt="شعار وحدة الجودة" class="logo-img">
                 </div>
