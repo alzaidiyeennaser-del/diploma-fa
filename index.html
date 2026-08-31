@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" id="htmlRoot">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>المساعد الذكي - الدبلوم العالي لإعداد المعلمين | الجامعة الأردنية العقبة</title>
+    <title id="pageTitle">المساعد الذكي - الدبلوم العالي لإعداد المعلمين | الجامعة الأردنية العقبة</title>
 
     <!-- خط تجوال Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -70,7 +70,7 @@
             overflow: hidden;
         }
         
-        /* 🔵 الجزء الأعلى (الهيدر): كبير ومبارز 🔵 */
+        /* الهيدر */
         .header { 
             text-align: center; 
             padding: 45px 20px 35px 20px;
@@ -101,24 +101,49 @@
             border-radius: 2px;
         }
 
-        /* الشعارات بارزة في الجزء الأعلى */
+        /* زر تغيير اللغة */
+        .lang-switch-btn {
+            position: absolute;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--primary-color);
+            border: 1px solid var(--border-color);
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            z-index: 20;
+        }
+
+        .lang-switch-btn:hover {
+            background: #ffffff;
+            color: var(--accent-blue);
+            transform: translateX(-50%) scale(1.05);
+        }
+
         .header-logo-right,
         .header-logo-left {
             position: absolute;
             top: 15px;
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
             padding: 8px 12px;
             border-radius: 14px;
             box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
             border: 1.5px solid rgba(255, 255, 255, 0.8);
-            transition: all 0.3s ease;
             z-index: 10;
         }
 
-        .header-logo-right { right: 18px; }
-        .header-logo-left { left: 18px; }
+        /* اتجاه الشعارات حسب اللغة */
+        html[dir="rtl"] .header-logo-right { right: 18px; }
+        html[dir="rtl"] .header-logo-left { left: 18px; }
+        html[dir="ltr"] .header-logo-right { left: 18px; }
+        html[dir="ltr"] .header-logo-left { right: 18px; }
 
         .logo-img { 
             max-height: 75px; 
@@ -128,14 +153,14 @@
         }
 
         .header-content {
-            margin-top: 40px;
+            margin-top: 35px;
             width: 100%;
             padding: 0 10px;
         }
 
         h1 { 
             color: #ffffff; 
-            font-size: 24px; 
+            font-size: 22px; 
             font-weight: 800; 
             text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
             line-height: 1.4;
@@ -143,7 +168,7 @@
 
         .subtitle { 
             color: #fde047; 
-            font-size: 18px; 
+            font-size: 17px; 
             margin-top: 6px; 
             font-weight: 800; 
             text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
@@ -156,7 +181,7 @@
             color: #ffffff;
             padding: 4px 16px;
             border-radius: 18px;
-            font-size: 13.5px;
+            font-size: 13px;
             font-weight: 700;
             margin-top: 8px;
             border: 1px solid rgba(255, 255, 255, 0.4);
@@ -166,7 +191,6 @@
             padding: 16px 20px;
         }
         
-        /* 🔴 الجزء الأسفل (البحث والبطاقة): صغير ومدمج 🔴 */
         .search-container { 
             position: sticky; 
             top: 8px; 
@@ -186,7 +210,7 @@
 
         .search-box { 
             width: 100%; 
-            padding: 8px 12px 8px 85px; 
+            padding: 8px 12px; 
             font-size: 12.5px; 
             border: 1.5px solid var(--border-color); 
             border-radius: 10px; 
@@ -197,6 +221,9 @@
             font-weight: 500;
         }
 
+        html[dir="rtl"] .search-box { padding-left: 95px; }
+        html[dir="ltr"] .search-box { padding-right: 95px; }
+
         .search-box:focus { 
             border-color: var(--accent-blue); 
             background-color: #ffffff; 
@@ -205,7 +232,6 @@
 
         .robot-badge {
             position: absolute;
-            left: 6px;
             display: flex;
             align-items: center;
             gap: 3px;
@@ -219,18 +245,21 @@
             pointer-events: none;
         }
 
+        html[dir="rtl"] .robot-badge { left: 6px; }
+        html[dir="ltr"] .robot-badge { right: 6px; }
+
         .robot-icon { font-size: 13px; }
         
         .stats { 
             margin: 4px 5px 8px 5px; 
             font-size: 11.5px; 
             color: var(--primary-light); 
-            text-align: right; 
             display: none; 
             font-weight: 700; 
         }
+        html[dir="rtl"] .stats { text-align: right; }
+        html[dir="ltr"] .stats { text-align: left; }
 
-        /* البطاقات صغيرة الحجم */
         .placeholder-card { 
             text-align: center; 
             color: var(--text-muted); 
@@ -277,11 +306,12 @@
             content: '';
             position: absolute;
             top: 0;
-            right: 0;
             width: 3px;
             height: 100%;
             background: linear-gradient(180deg, var(--accent-blue), var(--secondary-color));
         }
+        html[dir="rtl"] .faq-item::before { right: 0; }
+        html[dir="ltr"] .faq-item::before { left: 0; }
 
         .faq-item:hover { 
             transform: translateY(-1px);
@@ -304,8 +334,9 @@
             color: #334155; 
             line-height: 1.6; 
             white-space: pre-line; 
-            padding-right: 18px; 
         }
+        html[dir="rtl"] .answer { padding-right: 18px; }
+        html[dir="ltr"] .answer { padding-left: 18px; }
 
         .answer a { 
             color: var(--accent-blue); 
@@ -334,25 +365,15 @@
             color: var(--text-muted);
         }
 
-        /* تحسين التجاوب على الهواتف المحمولة */
         @media (max-width: 640px) {
             body { padding: 5px 2px; }
             .content-body { padding: 10px 8px; }
             .header { padding: 25px 10px 20px 10px; min-height: 170px; }
-            
-            .header-logo-right { right: 8px; top: 8px; padding: 4px 6px; }
-            .header-logo-left { left: 8px; top: 8px; padding: 4px 6px; }
-            .logo-img { max-height: 48px; }
-            
-            .header-content { margin-top: 32px; }
-            h1 { font-size: 16px; }
-            .subtitle { font-size: 13px; }
-            .university-badge { font-size: 11px; padding: 2px 10px; }
-            
-            .search-box { padding: 7px 10px 7px 75px; font-size: 11.5px; }
-            .robot-badge { font-size: 9.5px; padding: 2px 4px; left: 4px; }
-            .placeholder-card { padding: 8px 6px; font-size: 11.5px; }
-            .placeholder-icon { font-size: 18px; }
+            .logo-img { max-height: 45px; }
+            h1 { font-size: 15px; }
+            .subtitle { font-size: 12px; }
+            .university-badge { font-size: 10.5px; padding: 2px 10px; }
+            .search-box { font-size: 11.5px; }
         }
     </style>
 </head>
@@ -361,31 +382,32 @@
     <div class="gradient-border-wrapper">
         <div class="container">
             
-            <!-- الجزء الأعلى (كبير ومستعرض) -->
+            <!-- الهيدر -->
             <div class="header">
+                <button class="lang-switch-btn" id="langSwitchBtn" onclick="toggleLanguage()">English</button>
+
                 <div class="header-logo-right">
-                    <img src="شعار.png" alt="شعار الجامعة الأردنية" class="logo-img">
+                    <img src="شعار.png" alt="University Logo" class="logo-img">
                 </div>
                 
                 <div class="header-logo-left">
-                    <img src="شعار وحدة الجودة.png" alt="شعار وحدة الجودة" class="logo-img">
+                    <img src="شعار وحدة الجودة.png" alt="Quality Assurance Logo" class="logo-img">
                 </div>
 
                 <div class="header-content">
-                    <h1>المساعد الذكي لبرنامج الدبلوم العالي لإعداد المعلمين</h1>
-                    <div class="subtitle">الجامعة الأردنية – فرع العقبة</div>
-                    <div class="university-badge">كلية اللغات</div>
+                    <h1 id="mainTitle">المساعد الذكي لبرنامج الدبلوم العالي لإعداد المعلمين</h1>
+                    <div class="subtitle" id="subTitle">الجامعة الأردنية – فرع العقبة</div>
+                    <div class="university-badge" id="facultyBadge">كلية اللغات</div>
                 </div>
             </div>
 
-            <!-- الجزء الأسفل (مدمج وصغير) -->
             <div class="content-body">
                 <div class="search-container">
                     <div class="search-wrapper">
-                        <input type="text" id="searchInput" class="search-box" placeholder="ابحث عن أي سؤال أو كلمة مفتاحية (مثال: مدير البرنامج، الموقع، الرابط الرسمي)..." onkeyup="searchFAQ()">
+                        <input type="text" id="searchInput" class="search-box" placeholder="ابحث عن أي سؤال أو كلمة مفتاحية..." onkeyup="searchFAQ()">
                         <div class="robot-badge">
                             <span class="robot-icon">🤖</span>
-                            <span>اسألني</span>
+                            <span id="askMeText">اسألني</span>
                         </div>
                     </div>
                 </div>
@@ -394,14 +416,14 @@
                 
                 <div id="placeholder" class="placeholder-card">
                     <span class="placeholder-icon">💡</span>
-                    <strong>مرحباً بك في المساعد الذكي لبرنامج الدبلوم العالي</strong><br>
-                    أدخل كلمتك المفتاحية في مربع البحث أعلاه لاستعراض الأجوبة والتفاصيل مباشرة.
+                    <strong id="welcomeHeader">مرحباً بك في المساعد الذكي لبرنامج الدبلوم العالي</strong><br>
+                    <span id="welcomeSub">أدخل كلمتك المفتاحية في مربع البحث أعلاه لاستعراض الأجوبة والتفاصيل مباشرة.</span>
                 </div>
                 
                 <div id="faqContainer"></div>
-                <div id="noResult" class="no-result">عذراً، لم يتم العثور على نتيجة مطابقة. جرب استخدام كلمات مفتاحية بسيطة أخرى.</div>
+                <div id="noResult" class="no-result" id="noResultText">عذراً، لم يتم العثور على نتيجة مطابقة. جرب استخدام كلمات مفتاحية بسيطة أخرى.</div>
 
-                <div class="footer-note">
+                <div class="footer-note" id="footerText">
                     جميع الحقوق محفوظة © الجامعة الأردنية - فرع العقبة
                 </div>
             </div>
@@ -410,35 +432,112 @@
     </div>
 
     <script>
-        const faqs = [
-            { id: 1, q: "من هو رئيس الجامعة الأردنية / فرع العقبة وما هو بريده الإلكتروني؟", a: "رئيس الجامعة الأردنية فرع العقبة هو الأستاذ الدكتور صالح الرواضية.\nالبريد الإلكتروني: s.rawadieh@ju.edu.jo" },
-            { id: 2, q: "من هو مدير برنامج الدبلوم العالي لإعداد المعلمين في فرع العقبة، وكيف يمكنني التواصل معه؟", a: "مدير البرنامج هو الدكتور عبد الحميد العوابدة (أستاذ مشارك في قسم اللغة الإنجليزية وآدابها / اللغة الإنجليزية التطبيقية).\nالبريد الإلكتروني: a.alawabdeh@ju.edu.jo\nالهاتف: +96232090450" },
-            { id: 3, q: "كيف أصل إلى الرابط الرسمي المخصص لبرنامج إعداد المعلمين على موقع الجامعة؟", a: "يمكنك الوصول إلى كافة التعاميم والأنشطة عبر الرابط الرسمي:\n<a href='https://aqlanguages.ju.edu.jo/ar/arabic/Departments/School_DeptHome.aspx?deptname=%20%D8%A7%D8%B9%D8%AF%D8%A7%D8%AF%20%D8%A7%D9%84%D9%85%D8%B9%D9%84%D9%85%D9%8A%D9%8BD20%D9%88%D8%A7%D9%84%D8%AA%D8%AF%D8%B1%D9%8A%D8%A8%20%D8%A7%D9%84%D9%85%D9%8A%D8%AF%D8%A7%D9%8BD20' target='_blank'>صفحة برنامج إعداد المعلمين والتدريب الميداني - فرع العقبة</a>" },
-            { id: 4, q: "ما هو موقع الجامعة الأردنية فرع العقبة على خرائط جوجل؟ وما هي معلومات الوصول السريع؟", a: "📍 <a href='https://maps.google.com/?q=The+University+of+Jordan+Aqaba+Branch' target='_blank'>موقع الجامعة الأردنية فرع العقبة على خرائط جوجل</a>\n\nمعلومات الوصول السريع:\nالعنوان: العقبة - المنطقة الشمالية (بالقرب من الشارع الرئيسي المؤدي إلى وسط المدينة والمطار)." },
-            { id: 5, q: "أين تقع إدارة البرنامج أو الكلية المسؤولة عن الدبلوم داخل حرم الجامعة بالعقبة؟", a: "يتبع البرنامج أكاديمياً لـ كلية اللغات (قسم إعداد المعلمين والتدريب الميداني) في الحرم الجامعي بالعقبة." },
-            { id: 6, q: "هل تتوفر مكتبة جامعية مجهزة ومساحات للمذاكرة لدعم طلبة الدبلوم في العقبة؟", a: "نعم، توفر مكتبة الفرع مصادر ورقية وإلكترونية متخصصة في التربية والمناهج واستراتيجيات التدريس، بالإضافة إلى قاعات دراسة فردية وجماعية ومختبرات حاسوب مجهزة للبحث وتصميم الدروس الرقمية." },
-            { id: 7, q: "ما رؤية برنامج الدبلوم العالي لإعداد المعلمين؟", a: "الريادة في إعداد معلمين مؤهلين يمتلكون الكفايات المهنية والتربوية والرقمية، وقادرين على قيادة التعلم الفاعل والمساهمة في تطوير التعليم وخدمة المجتمع وفق معايير الجودة والتميز." },
-            { id: 8, q: "ما رسالة برنامج الدبلوم العالي لإعداد المعلمين؟", a: "إعداد معلمين مؤهلين علميًا ومهنيًا من خلال برنامج تربوي نوعي يجمع بين المعرفة النظرية والممارسة التطبيقية، ويعزز الكفايات التدريسية، والتعلم النشط، والتوظيف الفاعل للتكنولوجيا، والتأمل المهني، بما ينسجم مع رسالة الجامعة الأردنية – فرع العقبة." },
-            { id: 9, q: "ما أهداف برنامج الدبلوم العالي لإعداد المعلمين؟", a: "1. إعداد معلمين يمتلكون المعارف التربوية والتخصصية.\n2. تمكين المعلمين من تصميم بيئات تعلم فاعلة وتوظيف التقنية.\n3. تحقيق التكامل بين المعرفة النظرية والممارسة العملية بالتطبيق الميداني.\n4. تنمية مهارات التفكير الناقد والبحث الإجرائي.\n5. تعزيز القيم المهنية والأخلاقية والتعليم الدامج." },
-            { id: 10, q: "ماهي مزايا برنامج الدبلوم العالي لإعداد المعلمين؟", a: "1. إتاحة الفرصة للطلبة المبتعثين للالتحاق بمهنة التعليم بعد إكمال متطلبات البرنامج.\n2. توظيف مباشر لأوائل التخصصات.\n3. الحصول على تأهيل تربوي مهني معتمد.\n4. الحصول على رتبة معلم مساعد عند التعيين (علاوة 35%)." },
-            { id: 11, q: "ما هو عدد ساعات الدراسة المعتمدة والمدة الزمنية؟", a: "يتكون البرنامج من 27 ساعة معتمدة موزعة على فصلين دراسيين (12 ساعة في الفصل الأول و15 ساعة في الفصل الثاني)، يمتد لسنة دراسية واحدة." },
-            { id: 12, q: "ما المقصود بالمصطلحات SEP و SM و TE؟", a: "• SEP (School Experience Period): فترة الخبرة أو التدريب الميداني المدرسية.\n• SM (School Mentor): المعلم المضيف أو المتعاون في المدرسة.\n• TE (Teacher Educator): عضو هيئة التدريس المشرف الأكاديمي من الجامعة." },
-            { id: 13, q: "ما التخصصات التي تؤهل البرنامج لتدريسها؟", a: "1. التربية الإسلامية\n2. التربية المهنية\n3. اللغة العربية\n4. اللغة الإنجليزية\n5. الرياضيات\n6. العلوم\n7. الإرشاد النفسي\n8. المناهج العامة." },
-            { id: 14, q: "من الجهة المسؤولة عن الترشيح والابتعاث والرسوم؟", a: "تتولى وزارة التربية والتعليم إجراءات الترشيح والابتعاث، وينفذ البرنامج على نفقة الوزارة للمرشحين المقبولين رسمياً." },
-            { id: 15, q: "هل يتضمن البرنامج تدريباً ميدانياً وهل هو إلزامي؟", a: "نعم، يخصص 50% من الوقت للتطبيق والتدريب الميداني وهو متطلب إجباري وأساسي للتخرج." }
-        ];
+        let currentLang = 'ar';
 
-        const fuseOptions = {
-            keys: [
-                { name: 'q', weight: 0.8 },
-                { name: 'a', weight: 0.2 }
-            ],
-            threshold: 0.0,
-            ignoreLocation: true,
-            useExtendedSearch: true,
-            minMatchCharLength: 2
+        const contentData = {
+            ar: {
+                pageTitle: "المساعد الذكي - الدبلوم العالي لإعداد المعلمين | الجامعة الأردنية العقبة",
+                mainTitle: "المساعد الذكي لبرنامج الدبلوم العالي لإعداد المعلمين",
+                subTitle: "الجامعة الأردنية – فرع العقبة",
+                facultyBadge: "كلية اللغات",
+                searchPlaceholder: "ابحث عن أي سؤال أو كلمة مفتاحية (مثال: مدير البرنامج، الموقع، الرابط الرسمي)...",
+                askMe: "اسألني",
+                welcomeHead: "مرحباً بك في المساعد الذكي لبرنامج الدبلوم العالي",
+                welcomeSub: "أدخل كلمتك المفتاحية في مربع البحث أعلاه لاستعراض الأجوبة والتفاصيل مباشرة.",
+                noResultText: "عذراً، لم يتم العثور على نتيجة مطابقة. جرب استخدام كلمات مفتاحية بسيطة أخرى.",
+                footer: "جميع الحقوق محفوظة © الجامعة الأردنية - فرع العقبة",
+                switchBtn: "English",
+                questionLabel: "سؤال #",
+                faqs: [
+                    { id: 1, q: "من هو رئيس الجامعة الأردنية / فرع العقبة وما هو بريده الإلكتروني؟", a: "رئيس الجامعة الأردنية فرع العقبة هو الأستاذ الدكتور صالح الرواضية.\nالبريد الإلكتروني: s.rawadieh@ju.edu.jo" },
+                    { id: 2, q: "من هو مدير برنامج الدبلوم العالي لإعداد المعلمين في فرع العقبة، وكيف يمكنني التواصل معه؟", a: "مدير البرنامج هو الدكتور عبد الحميد العوابدة (أستاذ مشارك في قسم اللغة الإنجليزية وآدابها / اللغة الإنجليزية التطبيقية).\nالبريد الإلكتروني: a.alawabdeh@ju.edu.jo\nالهاتف: +96232090450" },
+                    { id: 3, q: "كيف أصل إلى الرابط الرسمي المخصص لبرنامج إعداد المعلمين على موقع الجامعة؟", a: "يمكنك الوصول إلى كافة التعاميم والأنشطة عبر الرابط الرسمي:\n<a href='https://aqlanguages.ju.edu.jo/ar/arabic/Departments/School_DeptHome.aspx?deptname=%20%D8%A7%D8%B9%D8%AF%D8%A7%D8%AF%20%D8%A7%D9%84%D9%85%D8%B9%D9%84%D9%85%D9%8A%D9%8BD20%D9%88%D8%A7%D9%84%D8%AA%D8%AF%D8%B1%D9%8A%D8%A8%20%D8%A7%D9%84%D9%85%D9%8A%D8%AF%D8%A7%D9%8BD20' target='_blank'>صفحة برنامج إعداد المعلمين والتدريب الميداني - فرع العقبة</a>" },
+                    { id: 4, q: "ما هو موقع الجامعة الأردنية فرع العقبة على خرائط جوجل؟ وما هي معلومات الوصول السريع؟", a: "📍 <a href='https://maps.google.com/?q=The+University+of+Jordan+Aqaba+Branch' target='_blank'>موقع الجامعة الأردنية فرع العقبة على خرائط جوجل</a>\n\nمعلومات الوصول السريع:\nالعنوان: العقبة - المنطقة الشمالية (بالقرب من الشارع الرئيسي المؤدي إلى وسط المدينة والمطار)." },
+                    { id: 5, q: "أين تقع إدارة البرنامج أو الكلية المسؤولة عن الدبلوم داخل حرم الجامعة بالعقبة؟", a: "يتبع البرنامج أكاديمياً لـ كلية اللغات (قسم إعداد المعلمين والتدريب الميداني) في الحرم الجامعي بالعقبة." },
+                    { id: 6, q: "هل تتوفر مكتبة جامعية مجهزة ومساحات للمذاكرة لدعم طلبة الدبلوم في العقبة؟", a: "نعم، توفر مكتبة الفرع مصادر ورقية وإلكترونية متخصصة في التربية والمناهج واستراتيجيات التدريس، بالإضافة إلى قاعات دراسة فردية والجماعية ومختبرات حاسوب مجهزة." },
+                    { id: 7, q: "ما رؤية برنامج الدبلوم العالي لإعداد المعلمين؟", a: "الريادة في إعداد معلمين مؤهلين يمتلكون الكفايات المهنية والتربوية والرقمية، وقادرين على قيادة التعلم الفاعل والمساهمة في تطوير التعليم." },
+                    { id: 8, q: "ما رسالة برنامج الدبلوم العالي لإعداد المعلمين؟", a: "إعداد معلمين مؤهلين علميًا ومهنيًا من خلال برنامج تربوي نوعي يجمع بين المعرفة النظرية والممارسة التطبيقية، ويعزز الكفايات التدريسية والتعلم النشط." },
+                    { id: 9, q: "ما أهداف برنامج الدبلوم العالي لإعداد المعلمين؟", a: "1. إعداد معلمين يمتلكون المعارف التربوية والتخصصية.\n2. تمكين المعلمين من تصميم بيئات تعلم فاعلة وتوظيف التقنية.\n3. تحقيق التكامل بين المعرفة النظرية والممارسة العملية.\n4. تنمية مهارات التفكير الناقد والبحث الإجرائي.\n5. تعزيز القيم المهنية والتعليم الدامج." },
+                    { id: 10, q: "ماهي مزايا برنامج الدبلوم العالي لإعداد المعلمين؟", a: "1. إتاحة الفرصة للطلبة المبتعثين للالتحاق بمهنة التعليم بعد إكمال متطلبات البرنامج.\n2. توظيف مباشر لأوائل التخصصات.\n3. الحصول على تأهيل تربوي مهني معتمد.\n4. الحصول على رتبة معلم مساعد عند التعيين (علاوة 35%)." },
+                    { id: 11, q: "ما هو عدد ساعات الدراسة المعتمدة والمدة الزمنية؟", a: "يتكون البرنامج من 27 ساعة معتمدة موزعة على فصلين دراسيين (12 ساعة في الفصل الأول و15 ساعة في الفصل الثاني)، يمتد لسنة دراسية واحدة." },
+                    { id: 12, q: "ما المقصود بالمصطلحات SEP و SM و TE؟", a: "• SEP: فترة الخبرة أو التدريب الميداني المدرسية.\n• SM: المعلم المضيف أو المتعاون في المدرسة.\n• TE: عضو هيئة التدريس المشرف الأكاديمي من الجامعة." },
+                    { id: 13, q: "ما التخصصات التي تؤهل البرنامج لتدريسها؟", a: "1. التربية الإسلامية 2. التربية المهنية 3. اللغة العربية 4. اللغة الإنجليزية 5. الرياضيات 6. العلوم 7. الإرشاد النفسي 8. المناهج العامة." },
+                    { id: 14, q: "من الجهة المسؤولة عن الترشيح والابتعاث والرسوم؟", a: "تتولى وزارة التربية والتعليم إجراءات الترشيح والابتعاث، وينفذ البرنامج على نفقة الوزارة للمرشحين المقبولين رسمياً." },
+                    { id: 15, q: "هل يتضمن البرنامج تدريباً ميدانياً وهل هو إلزامي؟", a: "نعم، يخصص 50% من الوقت للتطبيق والتدريب الميداني وهو متطلب إجباري وأساسي للتخرج." }
+                ]
+            },
+            en: {
+                pageTitle: "Smart Assistant - Higher Diploma in Teacher Preparation | University of Jordan Aqaba",
+                mainTitle: "Smart Assistant for the Higher Diploma in Teacher Preparation",
+                subTitle: "The University of Jordan – Aqaba Branch",
+                facultyBadge: "School of Languages",
+                searchPlaceholder: "Search for any question or keyword (e.g., Director, Location, Link)...",
+                askMe: "Ask Me",
+                welcomeHead: "Welcome to the Higher Diploma Smart Assistant",
+                welcomeSub: "Enter your keyword in the search box above to view answers and details instantly.",
+                noResultText: "Sorry, no matching results found. Try using other simple keywords.",
+                footer: "All Rights Reserved © The University of Jordan - Aqaba Branch",
+                switchBtn: "العربية",
+                questionLabel: "Q #",
+                faqs: [
+                    { id: 1, q: "Who is the President of the University of Jordan / Aqaba Branch and what is his email?", a: "The President of the University of Jordan Aqaba Branch is Prof. Saleh Al-Rawadieh.\nEmail: s.rawadieh@ju.edu.jo" },
+                    { id: 2, q: "Who is the Director of the Higher Diploma in Teacher Preparation program in Aqaba, and how can I contact him?", a: "The program director is Dr. Abdulhameed Alawabdeh (Associate Professor in English Language and Literature / Applied Linguistics).\nEmail: a.alawabdeh@ju.edu.jo\nPhone: +96232090450" },
+                    { id: 3, q: "How can I access the official link dedicated to the Teacher Preparation program on the university website?", a: "You can access all circulars and activities via the official link:\n<a href='https://aqlanguages.ju.edu.jo/ar/arabic/Departments/School_DeptHome.aspx?deptname=%20%D8%A7%D8%B9%D8%AF%D8%A7%D8%AF%20%D8%A7%D9%84%D9%85%D8%B9%D9%84%D9%85%D9%8A%D9%8BD20%D9%88%D8%A7%D9%84%D8%AA%D8%AF%D8%B1%D9%8A%D8%A8%20%D8%A7%D9%84%D9%85%D9%8A%D8%AF%D8%A7%D9%8BD20' target='_blank'>Teacher Preparation & Practicum Page - Aqaba Branch</a>" },
+                    { id: 4, q: "What is the location of the University of Jordan Aqaba Branch on Google Maps, and quick access info?", a: "📍 <a href='https://maps.google.com/?q=The+University+of+Jordan+Aqaba+Branch' target='_blank'>University of Jordan Aqaba Branch on Google Maps</a>\n\nAddress: Aqaba - Northern District (near the main road leading to downtown and the airport)." },
+                    { id: 5, q: "Where is the program management or responsible college located inside the Aqaba campus?", a: "The program academically belongs to the School of Languages (Department of Teacher Preparation and Field Training) at the Aqaba campus." },
+                    { id: 6, q: "Are there equipped campus libraries and study spaces to support diploma students in Aqaba?", a: "Yes, the branch library provides specialized paper and electronic resources in education and teaching methods, along with individual/group study rooms and computer labs." },
+                    { id: 7, q: "What is the vision of the Higher Diploma in Teacher Preparation program?", a: "Leadership in preparing qualified teachers who possess professional, pedagogical, and digital competencies, capable of driving effective learning." },
+                    { id: 8, q: "What is the mission of the Higher Diploma in Teacher Preparation program?", a: "Preparing scientifically and professionally qualified teachers through a qualitative educational program combining theoretical knowledge and practical application." },
+                    { id: 9, q: "What are the goals of the Higher Diploma in Teacher Preparation program?", a: "1. Preparing teachers with pedagogical and disciplinary knowledge.\n2. Empowering teachers to design effective learning environments.\n3. Achieving integration between theory and field practice.\n4. Developing critical thinking and action research skills.\n5. Promoting professional values and inclusive education." },
+                    { id: 10, q: "What are the advantages of the Higher Diploma program?", a: "1. Providing sponsored students the opportunity to join teaching after completing requirements.\n2. Direct employment for top specialized graduates.\n3. Obtaining an accredited professional teaching qualification.\n4. Obtaining an assistant teacher rank upon appointment (35% allowance)." },
+                    { id: 11, q: "What is the number of required credit hours and duration?", a: "The program consists of 27 credit hours distributed over two semesters (12 hours in the first, 15 in the second), lasting for one academic year." },
+                    { id: 12, q: "What do the terms SEP, SM, and TE mean?", a: "• SEP: School Experience Period.\n• SM: School Mentor.\n• TE: Teacher Educator (Academic Supervisor from the university)." },
+                    { id: 13, q: "What specializations does the program qualify teachers to teach?", a: "1. Islamic Education 2. Vocational Education 3. Arabic Language 4. English Language 5. Mathematics 6. Science 7. Psychological Counseling 8. General Curricula." },
+                    { id: 14, q: "Who is responsible for nomination, scholarships, and fees?", a: "The Ministry of Education handles nomination and scholarship procedures, implemented at the ministry's expense for officially accepted candidates." },
+                    { id: 15, q: "Does the program include field training and is it mandatory?", a: "Yes, 50% of the time is dedicated to field training and application, which is a mandatory and essential graduation requirement." }
+                ]
+            }
         };
-        const fuse = new Fuse(faqs, fuseOptions);
+
+        let fuse;
+
+        function initFuse() {
+            const data = contentData[currentLang].faqs;
+            fuse = new Fuse(data, {
+                keys: [{ name: 'q', weight: 0.8 }, { name: 'a', weight: 0.2 }],
+                threshold: 0.0,
+                ignoreLocation: true,
+                useExtendedSearch: true,
+                minMatchCharLength: 2
+            });
+        }
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'ar' ? 'en' : 'ar';
+            const htmlRoot = document.getElementById('htmlRoot');
+            htmlRoot.setAttribute('dir', currentLang === 'ar' ? 'rtl' : 'ltr');
+            htmlRoot.setAttribute('lang', currentLang);
+
+            // تحديث النصوص الثابتة
+            const texts = contentData[currentLang];
+            document.getElementById('pageTitle').textContent = texts.pageTitle;
+            document.getElementById('mainTitle').textContent = texts.mainTitle;
+            document.getElementById('subTitle').textContent = texts.subTitle;
+            document.getElementById('facultyBadge').textContent = texts.facultyBadge;
+            document.getElementById('searchInput').placeholder = texts.searchPlaceholder;
+            document.getElementById('askMeText').textContent = texts.askMe;
+            document.getElementById('welcomeHeader').textContent = texts.welcomeHead;
+            document.getElementById('welcomeSub').textContent = texts.welcomeSub;
+            document.getElementById('noResult').textContent = texts.noResultText;
+            document.getElementById('footerText').textContent = texts.footer;
+            document.getElementById('langSwitchBtn').textContent = texts.switchBtn;
+
+            initFuse();
+            searchFAQ();
+        }
+
+        // التهيئة الأولى
+        initFuse();
 
         function searchFAQ() {
             const input = document.getElementById('searchInput').value.trim();
@@ -446,6 +545,7 @@
             const placeholder = document.getElementById('placeholder');
             const noResult = document.getElementById('noResult');
             const stats = document.getElementById('stats');
+            const texts = contentData[currentLang];
 
             if (!input) {
                 container.innerHTML = '';
@@ -456,7 +556,6 @@
             }
 
             placeholder.style.display = 'none';
-            
             const results = fuse.search("'" + input);
 
             if (results.length === 0) {
@@ -466,11 +565,11 @@
             } else {
                 noResult.style.display = 'none';
                 stats.style.display = 'block';
-                stats.textContent = `عدد النتائج المطابقة: (${results.length})`;
+                stats.textContent = currentLang === 'ar' ? `عدد النتائج المطابقة: (${results.length})` : `Matching results: (${results.length})`;
                 
                 container.innerHTML = results.map(res => `
                     <div class="faq-item">
-                        <div class="question"><span class="badge">سؤال #${res.item.id}</span> ${res.item.q}</div>
+                        <div class="question"><span class="badge">${texts.questionLabel}${res.item.id}</span> ${res.item.q}</div>
                         <div class="answer">${res.item.a}</div>
                     </div>
                 `).join('');
