@@ -258,7 +258,7 @@
         html[dir="rtl"] .stats { text-align: right; }
         html[dir="ltr"] .stats { text-align: left; }
 
-        /* بطاقة الترحيب مع تكبير صورة الروبوت أكثر وإطارها الجميل المنسق */
+        /* بطاقة الترحيب مع صورة الروبوت المكبرة وبدون إطار خارجي */
         .placeholder-card { 
             display: flex;
             align-items: center;
@@ -276,32 +276,20 @@
 
         html[dir="ltr"] .placeholder-card { text-align: left; }
 
-        /* حاوية وتنسيق إطار صورة الروبوت الفاخر */
-        .robot-frame-wrapper {
-            position: relative;
-            padding: 8px;
-            background: #ffffff;
-            border-radius: 22px;
-            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.15), 0 4px 10px rgba(0,0,0,0.06);
-            border: 2px solid #e0e7ff;
+        /* حاوية وتنسيق صورة الروبوت بدون إطار وبأبعاد مناسبة ومتوازنة */
+        .robot-img-container {
             flex-shrink: 0;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: transform 0.3s ease;
-        }
-
-        .robot-frame-wrapper:hover {
-            transform: scale(1.03);
-            border-color: var(--accent-blue);
         }
 
         .robot-img-welcome {
-            width: 185px;
-            height: 185px;
+            width: 175px;
+            height: 195px;
             object-fit: contain;
-            border-radius: 16px;
             display: block;
+            filter: drop-shadow(0 8px 12px rgba(37, 99, 235, 0.2));
             animation: floatRobot 3s ease-in-out infinite;
         }
 
@@ -444,7 +432,7 @@
             .content-body { padding: 12px 10px; }
             .search-box { font-size: 12.5px; padding: 10px 12px; }
             
-            /* تنسيق بطاقة الترحيب للموبايل متوافقة مع الحجم الكبير المطور */
+            /* تنسيق بطاقة الترحيب للموبايل */
             .placeholder-card { 
                 flex-direction: column; 
                 text-align: center; 
@@ -452,12 +440,8 @@
                 gap: 16px;
             }
             html[dir="ltr"] .placeholder-card { text-align: center; }
-            .robot-frame-wrapper {
-                padding: 6px;
-                border-radius: 18px;
-            }
             .robot-img-welcome { 
-                width: 155px; 
+                width: 140px; 
                 height: 155px; 
             }
             .welcome-text-content strong {
@@ -508,9 +492,9 @@
 
                 <div id="stats" class="stats"></div>
                 
-                <!-- قسم الترحيب مع صورة الروبوت المكبرة داخل إطار فاخر ومتناسق -->
+                <!-- قسم الترحيب مع صورة الروبوت المكبرة بدون إطار -->
                 <div id="placeholder" class="placeholder-card">
-                    <div class="robot-frame-wrapper">
+                    <div class="robot-img-container">
                         <img src="روبرت.png" alt="شخصية روبرت الترحيبية" class="robot-img-welcome" onerror="this.parentElement.style.display='none';">
                     </div>
                     <div class="welcome-text-content">
