@@ -13,26 +13,28 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            overflow: hidden;
+            min-height: 100vh;
+            overflow-x: hidden;
         }
 
         .container {
             text-align: center;
-            background: rgba(255, 255, 255, 0.9);
-            padding: 40px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-            max-width: 600px;
+            max-width: 650px;
             width: 90%;
+            margin: 20px;
         }
 
-        /* تنسيق وتحريك الصورة */
+        /* تنسيق الصورة الأصلية وتحريكها بحركة انسيابية لطيفة */
         .robot-img {
-            width: 320px;
-            max-width: 100%;
+            width: 100%;
+            max-width: 550px;
             height: auto;
-            border-radius: 15px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
             animation: floatRobot 3s ease-in-out infinite;
         }
 
@@ -42,7 +44,7 @@
                 transform: translateY(0px);
             }
             50% {
-                transform: translateY(-12px);
+                transform: translateY(-8px);
             }
             100% {
                 transform: translateY(0px);
@@ -50,23 +52,18 @@
         }
 
         .welcome-text {
-            margin-top: 25px;
-            font-size: 1.5rem;
+            margin-top: 20px;
+            font-size: 1.3rem;
             color: #1b3b6f;
-            font-weight: bold;
-            line-height: 1.6;
+            fontين-weight: bold;
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <!-- تأكد أن اسم الصورة في مستودع GitHub مطابقة تماماً لـ روبرت.png أو اسم ملفك الإنجليزي -->
-        <img src="روبرت.png" alt="روبوت الترحيب" class="robot-img">
-        
-        <div class="welcome-text">
-            أهلاً بكم في الفضاء الرقمي للجامعة الأردنية / فرع العقبة
-        </div>
+        <!-- عرض صورتك الأصلية كما رفعتها بالضبط -->
+        <img src="روبرت.png" alt="شخصية روبرت الترحيبية" class="robot-img">
     </div>
 
 </body>
