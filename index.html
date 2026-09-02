@@ -139,7 +139,6 @@
             z-index: 10;
         }
 
-        /* اتجاه الشعارات حسب اللغة */
         html[dir="rtl"] .header-logo-right { right: 18px; }
         html[dir="rtl"] .header-logo-left { left: 18px; }
         html[dir="ltr"] .header-logo-right { left: 18px; }
@@ -260,22 +259,42 @@
         html[dir="rtl"] .stats { text-align: right; }
         html[dir="ltr"] .stats { text-align: left; }
 
+        /* تحديث كارد الترحيب ليشمل صورة الروبوت بشكل أنيق ومدمج */
         .placeholder-card { 
-            text-align: center; 
-            color: var(--text-muted); 
-            padding: 10px 12px; 
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-align: right; 
+            color: var(--text-main); 
+            padding: 15px 18px; 
             background: #f8fafc; 
-            border-radius: 10px; 
-            border: 1px dashed #cbd5e0; 
+            border-radius: 12px; 
+            border: 1.5px dashed #cbd5e0; 
             margin-top: 6px; 
-            font-size: 12px;
+            font-size: 12.5px;
         }
 
-        .placeholder-icon { 
-            font-size: 20px; 
-            margin-bottom: 2px; 
-            display: block; 
-            color: var(--secondary-color);
+        html[dir="ltr"] .placeholder-card { text-align: left; }
+
+        .robot-img-welcome {
+            width: 75px;
+            height: 75px;
+            object-fit: contain;
+            border-radius: 10px;
+            flex-shrink: 0;
+            animation: floatRobot 3s ease-in-out infinite;
+        }
+
+        @keyframes floatRobot {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .welcome-text-content {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
         }
 
         .no-result { 
@@ -374,6 +393,9 @@
             .subtitle { font-size: 12px; }
             .university-badge { font-size: 10.5px; padding: 2px 10px; }
             .search-box { font-size: 11.5px; }
+            .placeholder-card { flex-direction: column; text-align: center; }
+            html[dir="ltr"] .placeholder-card { text-align: center; }
+            .robot-img-welcome { width: 60px; height: 60px; }
         }
     </style>
 </head>
@@ -414,14 +436,17 @@
 
                 <div id="stats" class="stats"></div>
                 
+                <!-- قسم الترحيب المدمج مع صورة الروبوت -->
                 <div id="placeholder" class="placeholder-card">
-                    <span class="placeholder-icon">💡</span>
-                    <strong id="welcomeHeader">مرحباً بك في المساعد الذكي لبرنامج الدبلوم العالي</strong><br>
-                    <span id="welcomeSub">أدخل كلمتك المفتاحية في مربع البحث أعلاه لاستعراض الأجوبة والتفاصيل مباشرة.</span>
+                    <img src="روبرت.png" alt="شخصية روبرت الترحيبية" class="robot-img-welcome" onerror="this.style.display='none';">
+                    <div class="welcome-text-content">
+                        <strong id="welcomeHeader" style="color: var(--primary-color);">مرحباً بك في المساعد الذكي لبرنامج الدبلوم العالي</strong>
+                        <span id="welcomeSub">أدخل كلمتك المفتاحية في مربع البحث أعلاه لاستعراض الأجوبة والتفاصيل مباشرة.</span>
+                    </div>
                 </div>
                 
                 <div id="faqContainer"></div>
-                <div id="noResult" class="no-result" id="noResultText">عذراً، لم يتم العثور على نتيجة مطابقة. جرب استخدام كلمات مفتاحية بسيطة أخرى.</div>
+                <div id="noResult" class="no-result">عذراً، لم يتم العثور على نتيجة مطابقة. جرب استخدام كلمات مفتاحية بسيطة أخرى.</div>
 
                 <div class="footer-note" id="footerText">
                     جميع الحقوق محفوظة © الجامعة الأردنية - فرع العقبة
@@ -518,7 +543,6 @@
             htmlRoot.setAttribute('dir', currentLang === 'ar' ? 'rtl' : 'ltr');
             htmlRoot.setAttribute('lang', currentLang);
 
-            // تحديث النصوص الثابتة
             const texts = contentData[currentLang];
             document.getElementById('pageTitle').textContent = texts.pageTitle;
             document.getElementById('mainTitle').textContent = texts.mainTitle;
@@ -536,7 +560,6 @@
             searchFAQ();
         }
 
-        // التهيئة الأولى
         initFuse();
 
         function searchFAQ() {
@@ -549,7 +572,7 @@
 
             if (!input) {
                 container.innerHTML = '';
-                placeholder.style.display = 'block';
+                placeholder.style.display = 'flex';
                 noResult.style.display = 'none';
                 stats.style.display = 'none';
                 return;
