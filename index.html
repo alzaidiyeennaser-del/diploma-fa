@@ -3,177 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>المساعد الذكي - الدبلوم العالي لإعداد المعلمين | الجامعة الأردنية العقبة</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
-    
+    <title>برنامج الدبلوم العالي لإعداد المعلمين - الجامعة الأردنية / فرع العقبة</title>
     <style>
-        :root {
-            --primary-color: #0d233a;
-            --primary-light: #1e3a8a;
-            --secondary-color: #d97706;
-            --accent-blue: #2563eb;
-            --card-bg: rgba(255, 255, 255, 0.98);
-            --text-main: #1e293b;
-            --text-muted: #64748b;
-            --border-color: #e2e8f0;
-            --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.3);
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            font-family: 'Cairo', Tahoma, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
         }
 
-        * { box-sizing: border-box; font-family: 'Tajawal', system-ui, sans-serif; margin: 0; padding: 0; }
-        body { background: #0f172a; min-height: 100vh; padding: 20px 10px; color: var(--text-main); line-height: 1.6; display: flex; justify-content: center; align-items: center; }
-
-        .gradient-border-wrapper {
-            position: relative; max-width: 900px; width: 100%; border-radius: 24px; padding: 3px;
-            background: linear-gradient(135deg, #2563eb, #d97706, #3b82f6, #f59e0b);
-            background-size: 300% 300%; animation: borderGradient 8s ease infinite;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            max-width: 600px;
+            width: 90%;
         }
 
-        @keyframes borderGradient { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-
-        .container { background: var(--card-bg); padding: 0 0 20px 0; border-radius: 20px; box-shadow: var(--shadow-lg); overflow: hidden; }
-        
-        .header { 
-            text-align: center; padding: 45px 20px 35px 20px; position: relative;
-            background-image: linear-gradient(180deg, rgba(13, 35, 58, 0.35) 0%, rgba(13, 35, 58, 0.7) 100%), url('2.jpg');
-            background-repeat: no-repeat; background-position: center 35%; background-size: cover; color: #ffffff;
-            border-top-left-radius: 20px; border-top-right-radius: 20px; min-height: 240px;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
+        /* تنسيق وتحريك الصورة */
+        .robot-img {
+            width: 320px;
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
+            animation: floatRobot 3s ease-in-out infinite;
         }
 
-        .header::after {
-            content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
-            width: 120px; height: 4px; background: linear-gradient(90deg, #3b82f6, var(--secondary-color)); border-radius: 2px;
+        /* تأثير الحركة (الصعود والنزول المستمر) */
+        @keyframes floatRobot {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-12px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
         }
 
-        .lang-switch-btn {
-            position: absolute; top: 15px; left: 50%; transform: translateX(-50%);
-            background: rgba(255, 255, 255, 0.9); color: var(--primary-color); border: 1px solid var(--border-color);
-            padding: 5px 16px; border-radius: 20px; font-size: 12px; font-weight: 800; cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2); transition: all 0.3s ease; z-index: 20; text-decoration: none;
+        .welcome-text {
+            margin-top: 25px;
+            font-size: 1.5rem;
+            color: #1b3b6f;
+            font-weight: bold;
+            line-height: 1.6;
         }
-        .lang-switch-btn:hover { background: #ffffff; color: var(--accent-blue); transform: translateX(-50%) scale(1.05); }
-
-        .header-logo-right { position: absolute; top: 15px; right: 18px; background: rgba(255, 255, 255, 0.95); padding: 8px 12px; border-radius: 14px; box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25); z-index: 10; }
-        .header-logo-left { position: absolute; top: 15px; left: 18px; background: rgba(255, 255, 255, 0.95); padding: 8px 12px; border-radius: 14px; box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25); z-index: 10; }
-        .logo-img { max-height: 75px; width: auto; object-fit: contain; display: block; }
-
-        .header-content { margin-top: 35px; width: 100%; padding: 0 10px; }
-        h1 { color: #ffffff; font-size: 22px; font-weight: 800; text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8); line-height: 1.4; }
-        .subtitle { color: #fde047; font-size: 17px; margin-top: 6px; font-weight: 800; text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8); }
-        .university-badge { display: inline-block; background: rgba(13, 35, 58, 0.85); color: #ffffff; padding: 4px 16px; border-radius: 18px; font-size: 13px; font-weight: 700; margin-top: 8px; border: 1px solid rgba(255, 255, 255, 0.4); }
-
-        .content-body { padding: 16px 20px; }
-        .search-container { position: sticky; top: 8px; background: rgba(255, 255, 255, 0.98); padding: 2px 0; z-index: 100; margin-bottom: 10px; border-radius: 10px; }
-        .search-wrapper { position: relative; display: flex; align-items: center; }
-        .search-box { width: 100%; padding: 8px 12px 8px 95px; font-size: 12.5px; border: 1.5px solid var(--border-color); border-radius: 10px; outline: none; background-color: #f8fafc; color: var(--text-main); font-weight: 500; }
-        .search-box:focus { border-color: var(--accent-blue); background-color: #ffffff; box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12); }
-
-        .robot-badge { position: absolute; left: 6px; display: flex; align-items: center; gap: 3px; background: #eff6ff; color: var(--primary-light); padding: 3px 6px; border-radius: 6px; border: 1px solid #dbeafe; font-weight: 700; font-size: 11px; pointer-events: none; }
-        .stats { margin: 4px 5px 8px 5px; font-size: 11.5px; color: var(--primary-light); display: none; font-weight: 700; text-align: right; }
-
-        .placeholder-card { text-align: center; color: var(--text-muted); padding: 10px 12px; background: #f8fafc; border-radius: 10px; border: 1px dashed #cbd5e0; margin-top: 6px; font-size: 12px; }
-        .placeholder-icon { font-size: 20px; margin-bottom: 2px; display: block; color: var(--secondary-color); }
-        .no-result { display: none; text-align: center; color: #991b1b; padding: 12px; font-size: 12.5px; background: #fef2f2; border-radius: 10px; border: 1px solid #fecaca; margin-top: 6px; }
-
-        .faq-item { background: #ffffff; border: 1px solid var(--border-color); border-radius: 10px; margin-bottom: 10px; padding: 12px 14px 12px 14px; position: relative; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
-        .faq-item::before { content: ''; position: absolute; top: 0; right: 0; width: 3px; height: 100%; background: linear-gradient(180deg, var(--accent-blue), var(--secondary-color)); }
-        .question { font-weight: 700; color: var(--primary-color); font-size: 14px; margin-bottom: 6px; display: flex; align-items: flex-start; gap: 6px; line-height: 1.4; }
-        .answer { font-size: 13px; color: #334155; line-height: 1.6; white-space: pre-line; padding-right: 18px; }
-        .answer a { color: var(--accent-blue); text-decoration: none; font-weight: 700; border-bottom: 1px dashed var(--accent-blue); }
-        .badge { background: #eff6ff; color: var(--primary-light); padding: 2px 5px; border-radius: 5px; font-size: 10.5px; font-weight: 800; flex-shrink: 0; border: 1px solid #dbeafe; }
-        .footer-note { text-align: center; margin-top: 16px; padding-top: 10px; border-top: 1px solid var(--border-color); font-size: 11px; color: var(--text-muted); }
     </style>
 </head>
 <body>
 
-    <div class="gradient-border-wrapper">
-        <div class="container">
-            <div class="header">
-                <a href="en.html" class="lang-switch-btn">English</a>
-                <div class="header-logo-right"><img src="شعار.png" alt="University Logo" class="logo-img"></div>
-                <div class="header-logo-left"><img src="شعار وحدة الجودة.png" alt="Quality Logo" class="logo-img"></div>
-                <div class="header-content">
-                    <h1>المساعد الذكي لبرنامج الدبلوم العالي لإعداد المعلمين</h1>
-                    <div class="subtitle">الجامعة الأردنية – فرع العقبة</div>
-                    <div class="university-badge">كلية اللغات</div>
-                </div>
-            </div>
-
-            <div class="content-body">
-                <div class="search-container">
-                    <div class="search-wrapper">
-                        <input type="text" id="searchInput" class="search-box" placeholder="ابحث عن أي سؤال أو كلمة مفتاحية..." onkeyup="searchFAQ()">
-                        <div class="robot-badge"><span class="robot-icon">🤖</span>اسألني</div>
-                    </div>
-                </div>
-
-                <div id="stats" class="stats"></div>
-                <div id="placeholder" class="placeholder-card">
-                    <span class="placeholder-icon">💡</span>
-                    <strong>مرحباً بك في المساعد الذكي لبرنامج الدبلوم العالي</strong><br>
-                    أدخل كلمتك المفتاحية في مربع البحث أعلاه لاستعراض الأجوبة والتفاصيل مباشرة.
-                </div>
-                
-                <div id="faqContainer"></div>
-                <div id="noResult" class="no-result">عذراً، لم يتم العثور على نتيجة مطابقة. جرب استخدام كلمات مفتاحية بسيطة أخرى.</div>
-
-                <div class="footer-note">جميع الحقوق محفوظة © الجامعة الأردنية - فرع العقبة</div>
-            </div>
+    <div class="container">
+        <!-- تأكد أن اسم الصورة في مستودع GitHub مطابقة تماماً لـ روبرت.png أو اسم ملفك الإنجليزي -->
+        <img src="روبرت.png" alt="روبوت الترحيب" class="robot-img">
+        
+        <div class="welcome-text">
+            أهلاً بكم في الفضاء الرقمي للجامعة الأردنية / فرع العقبة
         </div>
     </div>
 
-    <script>
-        const faqs = [
-            { id: 1, q: "من هو رئيس الجامعة الأردنية / فرع العقبة وما هو بريده الإلكتروني؟", a: "رئيس الجامعة الأردنية فرع العقبة هو الأستاذ الدكتور صالح الرواضية.\nالبريد الإلكتروني: s.rawadieh@ju.edu.jo" },
-            { id: 2, q: "من هو مدير برنامج الدبلوم العالي لإعداد المعلمين في فرع العقبة، وكيف يمكنني التواصل معه؟", a: "مدير البرنامج هو الدكتور عبد الحميد العوابدة (أستاذ مشارك في قسم اللغة الإنجليزية وآدابها / اللغة الإنجليزية التطبيقية).\nالبريد الإلكتروني: a.alawabdeh@ju.edu.jo\nالهاتف: +96232090450" },
-            { id: 3, q: "كيف أصل إلى الرابط الرسمي المخصص لبرنامج إعداد المعلمين على موقع الجامعة؟", a: "يمكنك الوصول إلى كافة التعاميم والأنشطة عبر الرابط الرسمي:\n<a href='https://aqlanguages.ju.edu.jo/ar/arabic/Departments/School_DeptHome.aspx?deptname=%20%D8%A7%D8%B9%D8%AF%D8%A7%D8%AF%20%D8%A7%D9%84%D9%85%D8%B9%D9%84%D9%85%D9%8A%D9%8BD20%D9%88%D8%A7%D9%84%D8%AA%D8%AF%D8%B1%D9%8A%D8%A8%20%D8%A7%D9%84%D9%85%D9%8A%D8%AF%D8%A7%D9%8BD20' target='_blank'>صفحة برنامج إعداد المعلمين والتدريب الميداني - فرع العقبة</a>" },
-            { id: 4, q: "ما هو موقع الجامعة الأردنية فرع العقبة على خرائط جوجل؟ وما هي معلومات الوصول السريع؟", a: "📍 <a href='https://maps.google.com/?q=The+University+of+Jordan+Aqaba+Branch' target='_blank'>موقع الجامعة الأردنية فرع العقبة على خرائط جوجل</a>\n\nمعلومات الوصول السريع:\nالعنوان: العقبة - المنطقة الشمالية (بالقرب من الشارع الرئيسي المؤدي إلى وسط المدينة والمطار)." },
-            { id: 5, q: "أين تقع إدارة البرنامج أو الكلية المسؤولة عن الدبلوم داخل حرم الجامعة بالعقبة؟", a: "يتبع البرنامج أكاديمياً لـ كلية اللغات (قسم إعداد المعلمين والتدريب الميداني) في الحرم الجامعي بالعقبة." },
-            { id: 6, q: "هل تتوفر مكتبة جامعية مجهزة ومساحات للمذاكرة لدعم طلبة الدبلوم في العقبة؟", a: "نعم، توفر مكتبة الفرع مصادر ورقية وإلكترونية متخصصة في التربية والمناهج واستراتيجيات التدريس، بالإضافة إلى قاعات دراسة فردية والجماعية ومختبرات حاسوب مجهزة." },
-            { id: 7, q: "ما رؤية برنامج الدبلوم العالي لإعداد المعلمين؟", a: "الريادة في إعداد معلمين مؤهلين يمتلكون الكفايات المهنية والتربوية والرقمية، وقادرين على قيادة التعلم الفاعل والمساهمة في تطوير التعليم." },
-            { id: 8, q: "ما رسالة برنامج الدبلوم العالي لإعداد المعلمين؟", a: "إعداد معلمين مؤهلين علميًا ومهنيًا من خلال برنامج تربوي نوعي يجمع بين المعرفة النظرية والممارسة التطبيقية، ويعزز الكفايات التدريسية والتعلم النشط." },
-            { id: 9, q: "ما أهداف برنامج الدبلوم العالي لإعداد المعلمين؟", a: "1. إعداد معلمين يمتلكون المعارف التربوية والتخصصية.\n2. تمكين المعلمين من تصميم بيئات تعلم فاعلة وتوظيف التقنية.\n3. تحقيق التكامل بين المعرفة النظرية والممارسة العملية.\n4. تنمية مهارات التفكير الناقد والبحث الإجرائي.\n5. تعزيز القيم المهنية والتعليم الدامج." },
-            { id: 10, q: "ماهي مزايا برنامج الدبلوم العالي لإعداد المعلمين؟", a: "1. إتاحة الفرصة للطلبة المبتعثين للالتحاق بمهنة التعليم بعد إكمال متطلبات البرنامج.\n2. توظيف مباشر لأوائل التخصصات.\n3. الحصول على تأهيل تربوي مهني معتمد.\n4. الحصول على رتبة معلم مساعد عند التعيين (علاوة 35%)." },
-            { id: 11, q: "ما هو عدد ساعات الدراسة المعتمدة والمدة الزمنية؟", a: "يتكون البرنامج من 27 ساعة معتمدة موزعة على فصلين دراسيين (12 ساعة في الفصل الأول و15 ساعة في الفصل الثاني)، يمتد لسنة دراسية واحدة." },
-            { id: 12, q: "ما المقصود بالمصطلحات SEP و SM و TE؟", a: "• SEP: فترة الخبرة أو التدريب الميداني المدرسية.\n• SM: المعلم المضيف أو المتعاون في المدرسة.\n• TE: عضو هيئة التدريس المشرف الأكاديمي من الجامعة." },
-            { id: 13, q: "ما التخصصات التي تؤهل البرنامج لتدريسها؟", a: "1. التربية الإسلامية 2. التربية المهنية 3. اللغة العربية 4. اللغة الإنجليزية 5. الرياضيات 6. العلوم 7. الإرشاد النفسي 8. المناهج العامة." },
-            { id: 14, q: "من الجهة المسؤولة عن الترشيح والابتعاث والرسوم؟", a: "تتولى وزارة التربية والتعليم إجراءات الترشيح والابتعاث، وينفذ البرنامج على نفقة الوزارة للمرشحين المقبولين رسمياً." },
-            { id: 15, q: "هل يتضمن البرنامج تدريباً ميدانياً وهل هو إلزامي؟", a: "نعم، يخصص 50% من الوقت للتطبيق والتدريب الميداني وهو متطلب إجباري وأساسي للتخرج." }
-        ];
-
-        const fuse = new Fuse(faqs, { keys: ['q', 'a'], threshold: 0.0, ignoreLocation: true });
-
-        function searchFAQ() {
-            const input = document.getElementById('searchInput').value.trim();
-            const container = document.getElementById('faqContainer');
-            const placeholder = document.getElementById('placeholder');
-            const noResult = document.getElementById('noResult');
-            const stats = document.getElementById('stats');
-
-            if (!input) {
-                container.innerHTML = ''; placeholder.style.display = 'block'; noResult.style.display = 'none'; stats.style.display = 'none'; return;
-            }
-
-            placeholder.style.display = 'none';
-            const results = fuse.search(input);
-
-            if (results.length === 0) {
-                container.innerHTML = ''; noResult.style.display = 'block'; stats.style.display = 'none';
-            } else {
-                noResult.style.display = 'none'; stats.style.display = 'block';
-                stats.textContent = `عدد النتائج المطابقة: (${results.length})`;
-                container.innerHTML = results.map(res => `
-                    <div class="faq-item">
-                        <div class="question"><span class="badge">سؤال #${res.item.id}</span> ${res.item.q}</div>
-                        <div class="answer">${res.item.a}</div>
-                    </div>
-                `).join('');
-            }
-        }
-    </script>
 </body>
 </html>
