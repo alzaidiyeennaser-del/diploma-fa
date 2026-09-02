@@ -3,75 +3,199 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>برنامج الدبلوم العالي لإعداد المعلمين - الجامعة الأردنية / فرع العقبة</title>
+    <title>الدبلوم العالي لإعداد المعلمين - الجامعة الأردنية / فرع العقبة</title>
     <style>
+        :root {
+            --primary-color: #1b3b6f;
+            --secondary-color: #008080;
+            --bg-color: #f8f9fa;
+            --text-color: #333333;
+        }
+
         body {
             font-family: 'Cairo', Tahoma, sans-serif;
-            background-color: #f8f9fa;
-            color: #333;
+            background-color: var(--bg-color);
+            color: var(--text-color);
             margin: 0;
-            padding: 20px;
+            padding: 0;
             direction: rtl;
             text-align: right;
         }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: #ffffff;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-        }
-        h1 {
-            color: #1b3b6f;
+
+        header {
+            background: linear-gradient(135deg, #1b3b6f, #2d5a9e);
+            color: white;
+            padding: 30px 20px;
             text-align: center;
-            margin-bottom: 30px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            margin: 0;
             font-size: 1.8rem;
         }
+
+        header p {
+            margin: 8px 0 0 0;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        /* صورة الجامعة */
+        .image-container {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .university-img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            max-height: 400px;
+            object-fit: cover;
+        }
+
+        /* صندوق البحث */
+        .search-box {
+            margin-bottom: 35px;
+            text-align: center;
+        }
+
+        .search-input {
+            width: 90%;
+            max-width: 600px;
+            padding: 14px 20px;
+            font-size: 1rem;
+            border: 2px solid #cbd5e1;
+            border-radius: 30px;
+            outline: none;
+            transition: all 0.3s ease;
+            font-family: 'Cairo', Tahoma, sans-serif;
+        }
+
+        .search-input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 8px rgba(27, 59, 111, 0.2);
+        }
+
+        /* قسم الأسئلة والأجوبة */
+        .section-title {
+            color: var(--primary-color);
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 10px;
+        }
+
         .qa-box {
             margin-bottom: 20px;
-            padding: 15px 20px;
+            padding: 20px;
             background: #f1f5f9;
-            border-radius: 8px;
-            border-right: 4px solid #1b3b6f;
+            border-radius: 10px;
+            border-right: 5px solid var(--primary-color);
+            transition: transform 0.2s ease;
         }
+
+        .qa-box:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
         .question {
             font-weight: bold;
-            color: #1b3b6f;
-            margin-bottom: 8px;
+            color: var(--primary-color);
+            margin-bottom: 10px;
             font-size: 1.1rem;
         }
+
         .answer {
             color: #4b5563;
-            line-height: 1.6;
+            line-height: 1.7;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #64748b;
+            font-size: 0.9rem;
+            border-top: 1px solid #e2e8f0;
         }
     </style>
 </head>
 <body>
 
+    <header>
+        <h1>برنامج الدبلوم العالي لإعداد المعلمين</h1>
+        <p>الجامعة الأردنية / فرع العقبة</p>
+    </header>
+
     <div class="container">
-        <h1>الأسئلة الشائعة - برنامج الدبلوم العالي لإعداد المعلمين</h1>
-        <div style="text-align: center; color: #6b7280; margin-bottom: 25px;">الجامعة الأردنية / فرع العقبة</div>
 
-        <!-- السؤال الأول -->
-        <div class="qa-box">
-            <div class="question">س: ما هو الهدف الرئيسي من إنشاء برنامج الدبلوم العالي لإعداد المعلمين في فرع العقبة؟</div>
-            <div class="answer">ج: يهدف البرنامج إلى تلبية المتطلبات التنظيمية والمهنية الحديثة لتعيينات وزارة التربية والتعليم، وتزويد المعلمين بالمهارات التربوية والعملية اللازمة للتميز في البيئة الصفية وفق أعلى معايير الجودة الأكاديمية.</div>
+        <!-- صورة الجامعة -->
+        <div class="image-container">
+            <img src="ju-aqaba.jpg" alt="الجامعة الأردنية فرع العقبة" class="university-img" onerror="this.src='https://via.placeholder.com/800x400?text=University+of+Jordan+Aqaba';">
         </div>
 
-        <!-- السؤال الثاني -->
-        <div class="qa-box">
-            <div class="question">س: ما هي أهمية مساق الخبرة المدرسية والتطبيق الميداني؟</div>
-            <div class="answer">ج: يمثل الجانب التطبيقي الركيزة الأساسية لربط النظريات التربوية بالممارسة العملية داخل المدارس الشريكة، بإشراف مشترك ومستمر بين الجامعة والميدان التربوي.</div>
+        <!-- صندوق البحث الفوري -->
+        <div class="search-box">
+            <input type="text" id="searchInput" class="search-input" placeholder="ابحث في الأسئلة الشائعة ومحتوى البرنامج..." onkeyup="searchFunction()">
         </div>
 
-        <!-- السؤال الثالث -->
-        <div class="qa-box">
-            <div class="question">س: كيف يتم تقييم جاهزية المدارس الشريكة والمعلمين المرشدين؟</div>
-            <div class="answer">ج: من خلال أدوات استطلاع ومقاييس دورية تقيس الاستعداد التشغيلي واللوجستي، وتوفر قنوات تواصل فعالة ومستمرة لضمان تقديم تغذية راجعة بناءة للمدربين.</div>
+        <div class="section-title">الأسئلة الشائعة وإرشادات البرنامج</div>
+
+        <div id="qaContainer">
+            <!-- السؤال الأول -->
+            <div class="qa-box">
+                <div class="question">س: ما هو الهدف الرئيسي من إنشاء برنامج الدبلوم العالي لإعداد المعلمين في فرع العقبة؟</div>
+                <div class="answer">ج: يهدف البرنامج إلى تلبية المتطلبات التنظيمية والمهنية الحديثة لتعيينات وزارة التربية والتعليم، وتزويد المعلمين بالمهارات التربوية والعملية اللازمة للتميز في البيئة الصفية وفق أعلى معايير الجودة الأكاديمية.</div>
+            </div>
+
+            <!-- السؤال الثاني -->
+            <div class="qa-box">
+                <div class="question">س: ما هي أهمية مساق الخبرة المدرسية والتطبيق الميداني؟</div>
+                <div class="answer">ج: يمثل الجانب التطبيقي الركيزة الأساسية لربط النظريات التربوية بالممارسة العملية داخل المدارس الشريكة، بإشراف مشترك ومستمر بين الجامعة والميدان التربوي.</div>
+            </div>
+
+            <!-- السؤال الثالث -->
+            <div class="qa-box">
+                <div class="question">س: كيف يتم تقييم جاهزية المدارس الشريكة والمعلمين المرشدين؟</div>
+                <div class="answer">ج: من خلال أدوات استطلاع ومقاييس دورية تقيس الاستعداد التشغيلي واللوجستي، وتوفر قنوات تواصل فعالة ومستمرة لضمان تقديم تغذية راجعة بناءة للمدربين.</div>
+            </div>
         </div>
 
     </div>
+
+    <footer>
+        جميع الحقوق محفوظة &copy; الجامعة الأردنية - فرع العقبة 2026
+    </footer>
+
+    <script>
+        // دالة البحث الفوري لتصفية الأسئلة والأجوبة
+        function searchFunction() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let qaBoxes = document.getElementsByClassName('qa-box');
+
+            for (let i = 0; i < qaBoxes.length; i++) {
+                let text = qaBoxes[i].innerText || qaBoxes[i].textContent;
+                if (text.toLowerCase().indexOf(input) > -1) {
+                    qaBoxes[i].style.display = "";
+                } else {
+                    qaBoxes[i].style.display = "none";
+                }
+            }
+        }
+    </script>
 
 </body>
 </html>
