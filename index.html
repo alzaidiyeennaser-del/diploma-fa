@@ -601,8 +601,12 @@
         function initFuse() {
             const data = contentData[currentLang].faqs;
             fuse = new Fuse(data, {
-                keys: [{ name: 'q', weight: 0.8 }, { name: 'a', weight: 0.2 }],
-                threshold: 0.3,
+                keys: [
+                    { name: 'q', weight: 0.7 },
+                    { name: 'a', weight: 0.7 }
+                ],
+                threshold: 0.4,
+                distance: 100,
                 ignoreLocation: true,
                 useExtendedSearch: true,
                 minMatchCharLength: 2
