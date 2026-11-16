@@ -1,646 +1,661 @@
-<!-- خط تجوال Google Fonts -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" id="htmlRoot">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title id="pageTitle">المساعد الذكي - الدبلوم العالي لإعداد المعلمين | الجامعة الأردنية العقبة</title>
 
-<!-- مكتبة Fuse.js للبحث -->
-<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
+    <!-- خط تجوال Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
 
-<style>
-    :root {
-        --primary-color: #0d233a;
-        --primary-light: #1e3a8a;
-        --secondary-color: #d97706;
-        --accent-blue: #2563eb;
-        --card-bg: rgba(255, 255, 255, 0.98);
-        --text-main: #1e293b;
-        --text-muted: #64748b;
-        --border-color: #e2e8f0;
-        --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.3);
-    }
-
-    * { 
-        box-sizing: border-box; 
-        font-family: 'Tajawal', system-ui, -apple-system, sans-serif; 
-        margin: 0;
-        padding: 0;
-    }
-
-    body { 
-        background: #0f172a;
-        min-height: 100vh;
-        padding: 10px; 
-        color: var(--text-main); 
-        line-height: 1.6; 
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .gradient-border-wrapper {
-        position: relative;
-        max-width: 900px;
-        width: 100%;
-        border-radius: 24px;
-        padding: 3px;
-        background: linear-gradient(135deg, #2563eb, #d97706, #3b82f6, #f59e0b);
-        background-size: 300% 300%;
-        animation: borderGradient 8s ease infinite;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    }
-
-    @keyframes borderGradient {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
-    }
-
-    .container { 
-        background: var(--card-bg); 
-        padding: 0 0 20px 0; 
-        border-radius: 21px; 
-        box-shadow: var(--shadow-lg); 
-        overflow: hidden;
-    }
+    <!-- مكتبة Fuse.js للبحث -->
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
     
-    /* الهيدر */
-    .header { 
-        text-align: center; 
-        padding: 40px 15px 30px 15px;
-        position: relative;
-        background-image: linear-gradient(180deg, rgba(13, 35, 58, 0.4) 0%, rgba(13, 35, 58, 0.75) 100%), url('2.jpg');
-        background-repeat: no-repeat;
-        background-position: center 35%;
-        background-size: cover;
-        color: #ffffff;
-        border-top-left-radius: 21px;
-        border-top-right-radius: 21px;
-        min-height: 220px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .header::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 120px;
-        height: 4px;
-        background: linear-gradient(90deg, #3b82f6, var(--secondary-color));
-        border-radius: 2px;
-    }
-
-    /* زر تغيير اللغة */
-    .lang-switch-btn {
-        position: absolute;
-        top: 12px;
-        left: 50%;
-        transform: translateX(-50%);
-        background: rgba(255, 255, 255, 0.95);
-        color: var(--primary-color);
-        border: 1px solid var(--border-color);
-        padding: 4px 12px;
-        border-radius: 20px;
-        font-size: 11px;
-        font-weight: 800;
-        cursor: pointer;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        transition: all 0.3s ease;
-        z-index: 20;
-    }
-
-    .lang-switch-btn:hover {
-        background: #ffffff;
-        color: var(--accent-blue);
-        transform: translateX(-50%) scale(1.05);
-    }
-
-    .header-logo-right,
-    .header-logo-left {
-        position: absolute;
-        top: 12px;
-        background: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(8px);
-        padding: 6px 10px;
-        border-radius: 12px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-        border: 1px solid rgba(255, 255, 255, 0.8);
-        z-index: 10;
-    }
-
-    html[dir="rtl"] .header-logo-right { right: 12px; }
-    html[dir="rtl"] .header-logo-left { left: 12px; }
-    html[dir="ltr"] .header-logo-right { left: 12px; }
-    html[dir="ltr"] .header-logo-left { right: 12px; }
-
-    .logo-img { 
-        max-height: 55px; 
-        width: auto; 
-        object-fit: contain; 
-        display: block;
-    }
-
-    .header-content {
-        margin-top: 25px;
-        width: 100%;
-        padding: 0 5px;
-    }
-
-    h1 { 
-        color: #ffffff; 
-        font-size: 20px; 
-        font-weight: 800; 
-        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
-        line-height: 1.4;
-    }
-
-    .subtitle { 
-        color: #fde047; 
-        font-size: 15px; 
-        margin-top: 5px; 
-        font-weight: 800; 
-        text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
-    }
-
-    .university-badge {
-        display: inline-block;
-        background: rgba(13, 35, 58, 0.85);
-        backdrop-filter: blur(8px);
-        color: #ffffff;
-        padding: 3px 14px;
-        border-radius: 16px;
-        font-size: 12px;
-        font-weight: 700;
-        margin-top: 6px;
-        border: 1px solid rgba(255, 255, 255, 0.4);
-    }
-
-    .content-body {
-        padding: 16px;
-    }
-    
-    .search-container { 
-        position: sticky; 
-        top: 5px; 
-        background: rgba(255, 255, 255, 0.98);
-        backdrop-filter: blur(8px);
-        padding: 5px 0; 
-        z-index: 100; 
-        margin-bottom: 12px;
-    }
-
-    .search-wrapper {
-        position: relative;
-        display: flex;
-        align-items: center;
-    }
-
-    .search-box { 
-        width: 100%; 
-        padding: 12px 14px; 
-        font-size: 13.5px; 
-        border: 1.5px solid var(--border-color); 
-        border-radius: 12px; 
-        outline: none; 
-        transition: all 0.3s ease; 
-        background-color: #f8fafc; 
-        color: var(--text-main);
-        font-weight: 500;
-    }
-
-    html[dir="rtl"] .search-box { padding-left: 95px; }
-    html[dir="ltr"] .search-box { padding-right: 95px; }
-
-    .search-box:focus { 
-        border-color: var(--accent-blue); 
-        background-color: #ffffff; 
-        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12); 
-    }
-
-    .robot-badge {
-        position: absolute;
-        display: flex;
-        align-items: center;
-        gap: 4px;
-        background: #eff6ff;
-        color: var(--primary-light);
-        padding: 5px 9px;
-        border-radius: 8px;
-        border: 1px solid #dbeafe;
-        font-weight: 700;
-        font-size: 11.5px;
-        pointer-events: none;
-    }
-
-    html[dir="rtl"] .robot-badge { left: 8px; }
-    html[dir="ltr"] .robot-badge { right: 8px; }
-
-    .robot-icon { font-size: 14px; }
-    
-    .stats { 
-        margin: 6px 4px 10px 4px; 
-        font-size: 12px; 
-        color: var(--primary-light); 
-        display: none; 
-        font-weight: 700; 
-    }
-    html[dir="rtl"] .stats { text-align: right; }
-    html[dir="ltr"] .stats { text-align: left; }
-
-    .placeholder-card { 
-        display: flex;
-        align-items: center;
-        gap: 25px;
-        text-align: right; 
-        color: var(--text-main); 
-        padding: 26px; 
-        background: linear-gradient(135deg, #f8fafc 0%, #eff6ff 100%); 
-        border-radius: 20px; 
-        border: 1.5px solid #cbd5e0; 
-        margin-top: 8px; 
-        font-size: 14px;
-        box-shadow: 0 8px 25px rgba(0,0,0,0.05);
-    }
-
-    html[dir="ltr"] .placeholder-card { text-align: left; }
-
-    .robot-img-container {
-        flex-shrink: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .robot-img-welcome {
-        width: 175px;
-        height: 195px;
-        object-fit: contain;
-        display: block;
-        filter: drop-shadow(0 8px 12px rgba(37, 99, 235, 0.2));
-        animation: floatRobot 3s ease-in-out infinite;
-    }
-
-    @keyframes floatRobot {
-        0% { transform: translateY(0px); }
-        50% { transform: translateY(-7px); }
-        100% { transform: translateY(0px); }
-    }
-
-    .welcome-text-content {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-    }
-
-    .welcome-text-content strong {
-        font-size: 17.5px;
-        color: var(--primary-color);
-    }
-
-    .welcome-text-content span {
-        font-size: 14px;
-        line-height: 1.65;
-    }
-
-    .no-result { 
-        display: none; 
-        text-align: center; 
-        color: #991b1b; 
-        padding: 14px; 
-        font-size: 13px; 
-        background: #fef2f2; 
-        border-radius: 12px; 
-        border: 1px solid #fecaca; 
-        margin-top: 8px; 
-    }
-
-    .faq-item { 
-        background: #ffffff; 
-        border: 1px solid var(--border-color); 
-        border-radius: 12px; 
-        margin-bottom: 12px; 
-        padding: 14px 16px; 
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02); 
-        transition: all 0.25s ease; 
-        position: relative;
-        overflow: hidden;
-    }
-
-    .faq-item::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        width: 3.5px;
-        height: 100%;
-        background: linear-gradient(180deg, var(--accent-blue), var(--secondary-color));
-    }
-    html[dir="rtl"] .faq-item::before { right: 0; }
-    html[dir="ltr"] .faq-item::before { left: 0; }
-
-    .faq-item:hover { 
-        transform: translateY(-1px);
-        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05); 
-    }
-
-    .question { 
-        font-weight: 700; 
-        color: var(--primary-color); 
-        font-size: 14.5px; 
-        margin-bottom: 8px; 
-        display: flex; 
-        align-items: flex-start; 
-        gap: 8px; 
-        line-height: 1.45;
-    }
-
-    .answer { 
-        font-size: 13.5px; 
-        color: #334155; 
-        line-height: 1.7; 
-        white-space: pre-line; 
-    }
-    html[dir="rtl"] .answer { padding-right: 20px; }
-    html[dir="ltr"] .answer { padding-left: 20px; }
-
-    .answer a { 
-        color: var(--accent-blue); 
-        text-decoration: none; 
-        font-weight: 700; 
-        border-bottom: 1px dashed var(--accent-blue);
-    }
-
-    .badge { 
-        background: #eff6ff; 
-        color: var(--primary-light); 
-        padding: 2px 7px; 
-        border-radius: 6px; 
-        font-size: 11px; 
-        font-weight: 800; 
-        flex-shrink: 0; 
-        border: 1px solid #dbeafe;
-    }
-
-    .footer-note {
-        text-align: center;
-        margin-top: 20px;
-        padding-top: 12px;
-        border-top: 1px solid var(--border-color);
-        font-size: 11.5px;
-        color: var(--text-muted);
-    }
-
-    @media (max-width: 480px) {
-        body { 
-            padding: 0; 
-            background: var(--card-bg);
+    <style>
+        :root {
+            --primary-color: #0d233a;
+            --primary-light: #1e3a8a;
+            --secondary-color: #d97706;
+            --accent-blue: #2563eb;
+            --card-bg: rgba(255, 255, 255, 0.98);
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.3);
         }
-        .gradient-border-wrapper {
-            border-radius: 0;
+
+        * { 
+            box-sizing: border-box; 
+            font-family: 'Tajawal', system-ui, -apple-system, sans-serif; 
+            margin: 0;
             padding: 0;
-            box-shadow: none;
-            max-width: 100%;
         }
+
+        body { 
+            background: #0f172a;
+            min-height: 100vh;
+            padding: 10px; 
+            color: var(--text-main); 
+            line-height: 1.6; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .gradient-border-wrapper {
+            position: relative;
+            max-width: 900px;
+            width: 100%;
+            border-radius: 24px;
+            padding: 3px;
+            background: linear-gradient(135deg, #2563eb, #d97706, #3b82f6, #f59e0b);
+            background-size: 300% 300%;
+            animation: borderGradient 8s ease infinite;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        @keyframes borderGradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
         .container { 
-            border-radius: 0;
-            box-shadow: none;
+            background: var(--card-bg); 
+            padding: 0 0 20px 0; 
+            border-radius: 21px; 
+            box-shadow: var(--shadow-lg); 
+            overflow: hidden;
         }
+        
+        /* الهيدر */
         .header { 
-            padding: 35px 12px 25px 12px; 
-            min-height: 190px;
-            border-radius: 0;
-        }
-        .logo-img { max-height: 42px; }
-        .lang-switch-btn { top: 10px; padding: 3px 10px; font-size: 10.5px; }
-        .header-logo-right, .header-logo-left { top: 10px; padding: 4px 8px; }
-        h1 { font-size: 16px; }
-        .subtitle { font-size: 13px; }
-        .university-badge { font-size: 11px; padding: 2px 10px; }
-        .content-body { padding: 12px 10px; }
-        .search-box { font-size: 12.5px; padding: 10px 12px; }
-        
-        .placeholder-card { 
-            flex-direction: column; 
             text-align: center; 
-            padding: 20px 15px;
-            gap: 16px;
+            padding: 40px 15px 30px 15px;
+            position: relative;
+            background-image: linear-gradient(180deg, rgba(13, 35, 58, 0.4) 0%, rgba(13, 35, 58, 0.75) 100%), url('2.jpg');
+            background-repeat: no-repeat;
+            background-position: center 35%;
+            background-size: cover;
+            color: #ffffff;
+            border-top-left-radius: 21px;
+            border-top-right-radius: 21px;
+            min-height: 220px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
-        html[dir="ltr"] .placeholder-card { text-align: center; }
-        .robot-img-welcome { 
-            width: 140px; 
-            height: 155px; 
-        }
-        .welcome-text-content strong {
-            font-size: 16px;
-        }
-        .welcome-text-content span {
-            font-size: 13px;
-        }
-        .question { font-size: 13.5px; }
-        .answer { font-size: 12.5px; }
-    }
-</style>
 
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 4px;
+            background: linear-gradient(90deg, #3b82f6, var(--secondary-color));
+            border-radius: 2px;
+        }
 
-<div class="gradient-border-wrapper">
-    <div class="container">
+        /* زر تغيير اللغة */
+        .lang-switch-btn {
+            position: absolute;
+            top: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.95);
+            color: var(--primary-color);
+            border: 1px solid var(--border-color);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            z-index: 20;
+        }
+
+        .lang-switch-btn:hover {
+            background: #ffffff;
+            color: var(--accent-blue);
+            transform: translateX(-50%) scale(1.05);
+        }
+
+        .header-logo-right,
+        .header-logo-left {
+            position: absolute;
+            top: 12px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            padding: 6px 10px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            z-index: 10;
+        }
+
+        html[dir="rtl"] .header-logo-right { right: 12px; }
+        html[dir="rtl"] .header-logo-left { left: 12px; }
+        html[dir="ltr"] .header-logo-right { left: 12px; }
+        html[dir="ltr"] .header-logo-left { right: 12px; }
+
+        .logo-img { 
+            max-height: 55px; 
+            width: auto; 
+            object-fit: contain; 
+            display: block;
+        }
+
+        .header-content {
+            margin-top: 25px;
+            width: 100%;
+            padding: 0 5px;
+        }
+
+        h1 { 
+            color: #ffffff; 
+            font-size: 20px; 
+            font-weight: 800; 
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+            line-height: 1.4;
+        }
+
+        .subtitle { 
+            color: #fde047; 
+            font-size: 15px; 
+            margin-top: 5px; 
+            font-weight: 800; 
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
+        }
+
+        .university-badge {
+            display: inline-block;
+            background: rgba(13, 35, 58, 0.85);
+            backdrop-filter: blur(8px);
+            color: #ffffff;
+            padding: 3px 14px;
+            border-radius: 16px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-top: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+
+        .content-body {
+            padding: 16px;
+        }
         
-        <!-- الهيدر -->
-        <div class="header">
-            <button class="lang-switch-btn" id="langSwitchBtn" onclick="toggleLanguage()">English</button>
+        .search-container { 
+            position: sticky; 
+            top: 5px; 
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(8px);
+            padding: 5px 0; 
+            z-index: 100; 
+            margin-bottom: 12px;
+        }
 
-            <div class="header-logo-right">
-                <img src="شعار.png" alt="University Logo" class="logo-img">
-            </div>
+        .search-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-box { 
+            width: 100%; 
+            padding: 12px 14px; 
+            font-size: 13.5px; 
+            border: 1.5px solid var(--border-color); 
+            border-radius: 12px; 
+            outline: none; 
+            transition: all 0.3s ease; 
+            background-color: #f8fafc; 
+            color: var(--text-main);
+            font-weight: 500;
+        }
+
+        html[dir="rtl"] .search-box { padding-left: 95px; }
+        html[dir="ltr"] .search-box { padding-right: 95px; }
+
+        .search-box:focus { 
+            border-color: var(--accent-blue); 
+            background-color: #ffffff; 
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12); 
+        }
+
+        .robot-badge {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background: #eff6ff;
+            color: var(--primary-light);
+            padding: 5px 9px;
+            border-radius: 8px;
+            border: 1px solid #dbeafe;
+            font-weight: 700;
+            font-size: 11.5px;
+            pointer-events: none;
+        }
+
+        html[dir="rtl"] .robot-badge { left: 8px; }
+        html[dir="ltr"] .robot-badge { right: 8px; }
+
+        .robot-icon { font-size: 14px; }
+        
+        .stats { 
+            margin: 6px 4px 10px 4px; 
+            font-size: 12px; 
+            color: var(--primary-light); 
+            display: none; 
+            font-weight: 700; 
+        }
+        html[dir="rtl"] .stats { text-align: right; }
+        html[dir="ltr"] .stats { text-align: left; }
+
+        .placeholder-card { 
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            text-align: right; 
+            color: var(--text-main); 
+            padding: 26px; 
+            background: linear-gradient(135deg, #f8fafc 0%, #eff6ff 100%); 
+            border-radius: 20px; 
+            border: 1.5px solid #cbd5e0; 
+            margin-top: 8px; 
+            font-size: 14px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+        }
+
+        html[dir="ltr"] .placeholder-card { text-align: left; }
+
+        .robot-img-container {
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .robot-img-welcome {
+            width: 175px;
+            height: 195px;
+            object-fit: contain;
+            display: block;
+            filter: drop-shadow(0 8px 12px rgba(37, 99, 235, 0.2));
+            animation: floatRobot 3s ease-in-out infinite;
+        }
+
+        @keyframes floatRobot {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-7px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .welcome-text-content {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .welcome-text-content strong {
+            font-size: 17.5px;
+            color: var(--primary-color);
+        }
+
+        .welcome-text-content span {
+            font-size: 14px;
+            line-height: 1.65;
+        }
+
+        .no-result { 
+            display: none; 
+            text-align: center; 
+            color: #991b1b; 
+            padding: 14px; 
+            font-size: 13px; 
+            background: #fef2f2; 
+            border-radius: 12px; 
+            border: 1px solid #fecaca; 
+            margin-top: 8px; 
+        }
+
+        .faq-item { 
+            background: #ffffff; 
+            border: 1px solid var(--border-color); 
+            border-radius: 12px; 
+            margin-bottom: 12px; 
+            padding: 14px 16px; 
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02); 
+            transition: all 0.25s ease; 
+            position: relative;
+            overflow: hidden;
+        }
+
+        .faq-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 3.5px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--accent-blue), var(--secondary-color));
+        }
+        html[dir="rtl"] .faq-item::before { right: 0; }
+        html[dir="ltr"] .faq-item::before { left: 0; }
+
+        .faq-item:hover { 
+            transform: translateY(-1px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05); 
+        }
+
+        .question { 
+            font-weight: 700; 
+            color: var(--primary-color); 
+            font-size: 14.5px; 
+            margin-bottom: 8px; 
+            display: flex; 
+            align-items: flex-start; 
+            gap: 8px; 
+            line-height: 1.45;
+        }
+
+        .answer { 
+            font-size: 13.5px; 
+            color: #334155; 
+            line-height: 1.7; 
+            white-space: pre-line; 
+        }
+        html[dir="rtl"] .answer { padding-right: 20px; }
+        html[dir="ltr"] .answer { padding-left: 20px; }
+
+        .answer a { 
+            color: var(--accent-blue); 
+            text-decoration: none; 
+            font-weight: 700; 
+            border-bottom: 1px dashed var(--accent-blue);
+        }
+
+        .badge { 
+            background: #eff6ff; 
+            color: var(--primary-light); 
+            padding: 2px 7px; 
+            border-radius: 6px; 
+            font-size: 11px; 
+            font-weight: 800; 
+            flex-shrink: 0; 
+            border: 1px solid #dbeafe;
+        }
+
+        .footer-note {
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 12px;
+            border-top: 1px solid var(--border-color);
+            font-size: 11.5px;
+            color: var(--text-muted);
+        }
+
+        @media (max-width: 480px) {
+            body { 
+                padding: 0; 
+                background: var(--card-bg);
+            }
+            .gradient-border-wrapper {
+                border-radius: 0;
+                padding: 0;
+                box-shadow: none;
+                max-width: 100%;
+            }
+            .container { 
+                border-radius: 0;
+                box-shadow: none;
+            }
+            .header { 
+                padding: 35px 12px 25px 12px; 
+                min-height: 190px;
+                border-radius: 0;
+            }
+            .logo-img { max-height: 42px; }
+            .lang-switch-btn { top: 10px; padding: 3px 10px; font-size: 10.5px; }
+            .header-logo-right, .header-logo-left { top: 10px; padding: 4px 8px; }
+            h1 { font-size: 16px; }
+            .subtitle { font-size: 13px; }
+            .university-badge { font-size: 11px; padding: 2px 10px; }
+            .content-body { padding: 12px 10px; }
+            .search-box { font-size: 12.5px; padding: 10px 12px; }
             
-            <div class="header-logo-left">
-                <img src="شعار وحدة الجودة.png" alt="Quality Assurance Logo" class="logo-img">
+            .placeholder-card { 
+                flex-direction: column; 
+                text-align: center; 
+                padding: 20px 15px;
+                gap: 16px;
+            }
+            html[dir="ltr"] .placeholder-card { text-align: center; }
+            .robot-img-welcome { 
+                width: 140px; 
+                height: 155px; 
+            }
+            .welcome-text-content strong {
+                font-size: 16px;
+            }
+            .welcome-text-content span {
+                font-size: 13px;
+            }
+            .question { font-size: 13.5px; }
+            .answer { font-size: 12.5px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="gradient-border-wrapper">
+        <div class="container">
+            
+            <!-- الهيدر -->
+            <div class="header">
+                <button class="lang-switch-btn" id="langSwitchBtn" onclick="toggleLanguage()">English</button>
+
+                <div class="header-logo-right">
+                    <img src="شعار.png" alt="University Logo" class="logo-img">
+                </div>
+                
+                <div class="header-logo-left">
+                    <img src="شعار وحدة الجودة.png" alt="Quality Assurance Logo" class="logo-img">
+                </div>
+
+                <div class="header-content">
+                    <h1 id="mainTitle">المساعد الذكي لبرنامج الدبلوم العالي لإعداد المعلمين</h1>
+                    <div class="subtitle" id="subTitle">الجامعة الأردنية – فرع العقبة</div>
+                    <div class="university-badge" id="facultyBadge">كلية اللغات</div>
+                </div>
             </div>
 
-            <div class="header-content">
-                <h1 id="mainTitle">المساعد الذكي لبرنامج الدبلوم العالي لإعداد المعلمين</h1>
-                <div class="subtitle" id="subTitle">الجامعة الأردنية – فرع العقبة</div>
-                <div class="university-badge" id="facultyBadge">كلية اللغات</div>
-            </div>
-        </div>
-
-        <div class="content-body">
-            <div class="search-container">
-                <div class="search-wrapper">
-                    <input type="text" id="searchInput" class="search-box" placeholder="ابحث عن أي سؤال أو كلمة مفتاحية..." onkeyup="searchFAQ()">
-                    <div class="robot-badge">
-                        <span class="robot-icon">🤖</span>
-                        <span id="askMeText">اسألني</span>
+            <div class="content-body">
+                <div class="search-container">
+                    <div class="search-wrapper">
+                        <input type="text" id="searchInput" class="search-box" placeholder="ابحث عن أي سؤال أو كلمة مفتاحية..." onkeyup="searchFAQ()">
+                        <div class="robot-badge">
+                            <span class="robot-icon">🤖</span>
+                            <span id="askMeText">اسألني</span>
+                        </div>
                     </div>
                 </div>
+
+                <div id="stats" class="stats"></div>
+                
+                <!-- قسم الترحيب -->
+                <div id="placeholder" class="placeholder-card">
+                    <div class="robot-img-container">
+                        <img src="روبرت.png" alt="شخصية روبرت الترحيبية" class="robot-img-welcome" onerror="this.parentElement.style.display='none';">
+                    </div>
+                    <div class="welcome-text-content">
+                        <strong id="welcomeHeader">مرحباً بك في المساعد الذكي لبرنامج الدبلوم العالي</strong>
+                        <span id="welcomeSub">أدخل كلمتك المفتاحية في مربع البحث أعلاه لاستعراض الأجوبة والتفاصيل مباشرة.</span>
+                    </div>
+                </div>
+                
+                <div id="faqContainer"></div>
+                <div id="noResult" class="no-result">عذراً، لم يتم العثور على نتيجة مطابقة. جرب استخدام كلمات مفتاحية بسيطة أخرى.</div>
+
+                <div class="footer-note" id="footerText">
+                    جميع الحقوق محفوظة © الجامعة الأردنية - فرع العقبة
+                </div>
             </div>
 
-            <div id="stats" class="stats"></div>
-            
-            <!-- قسم الترحيب -->
-            <div id="placeholder" class="placeholder-card">
-                <div class="robot-img-container">
-                    <img src="روبرت.png" alt="شخصية روبرت الترحيبية" class="robot-img-welcome" onerror="this.parentElement.style.display='none';">
-                </div>
-                <div class="welcome-text-content">
-                    <strong id="welcomeHeader">مرحباً بك في المساعد الذكي لبرنامج الدبلوم العالي</strong>
-                    <span id="welcomeSub">أدخل كلمتك المفتاحية في مربع البحث أعلاه لاستعراض الأجوبة والتفاصيل مباشرة.</span>
-                </div>
-            </div>
-            
-            <div id="faqContainer"></div>
-            <div id="noResult" class="no-result">عذراً، لم يتم العثور على نتيجة مطابقة. جرب استخدام كلمات مفتاحية بسيطة أخرى.</div>
-
-            <div class="footer-note" id="footerText">
-                جميع الحقوق محفوظة © الجامعة الأردنية - فرع العقبة
-            </div>
         </div>
-
     </div>
-</div>
 
-<script>
-    let currentLang = 'ar';
+    <script>
+        let currentLang = 'ar';
 
-    const contentData = {
-        ar: {
-            pageTitle: "المساعد الذكي - الدبلوم العالي لإعداد المعلمين | الجامعة الأردنية العقبة",
-            mainTitle: "المساعد الذكي لبرنامج الدبلوم العالي لإعداد المعلمين",
-            subTitle: "الجامعة الأردنية – فرع العقبة",
-            facultyBadge: "كلية اللغات",
-            searchPlaceholder: "ابحث عن أي سؤال أو كلمة مفتاحية (جيبس، المقالات، المبادرات، APA 7، ملف الإنجاز)...",
-            askMe: "اسألني",
-            welcomeHead: "مرحباً بك في المساعد الذكي لبرنامج الدبلوم العالي",
-            welcomeSub: "أدخل كلمتك المفتاحية في مربع البحث أعلاه لاستعراض الأجوبة والتفاصيل مباشرة.",
-            noResultText: "عذراً، لم يتم العثور على نتيجة مطابقة. جرب استخدام كلمات مفتاحية بسيطة أخرى.",
-            footer: "جميع الحقوق محفوظة © الجامعة الأردنية - فرع العقبة",
-            switchBtn: "English",
-            questionLabel: "سؤال #",
-            faqs: [
-                { id: 1, q: "من هو رئيس الجامعة الأردنية / فرع العقبة وما هو بريده الإلكتروني؟", a: "رئيس الجامعة الأردنية فرع العقبة هو الأستاذ الدكتور صالح الرواضية.\nالبريد الإلكتروني: s.rawadieh@ju.edu.jo" },
-                { id: 2, q: "من هو مدير برنامج الدبلوم العالي لإعداد المعلمين في فرع العقبة، وكيف يمكنني التواصل معه؟", a: "مدير البرنامج هو الدكتور عبد الحميد العوابدة (أستاذ مشارك في قسم اللغة الإنجليزية وآدابها / اللغة الإنجليزية التطبيقية).\nالبريد الإلكتروني: a.alawabdeh@ju.edu.jo\nالهاتف: +96232090450" },
-                { id: 3, q: "ما هي المعايير الأساسية لاعتبار المبادرة المدرسية \"نوعية\" ومقبولة في ملف الإنجاز؟", a: "لكي تكون المبادرة نوعية، يجب أن تستند إلى مشكلة حقيقية رصدها الطالب المعلم ميدانياً (مثل ضعف دافعية أو فاقد تعليمي)، وأن تكون ذات أثر مستدام، مع وجود أداة قياس قبلية وبعدية لإثبات فاعليتها." },
-                { id: 4, q: "ما هي الأقسام أو المساقات الرئيسية التي يدرسها طالب الدبلوم ضمن خطته الدراسية؟", a: "تتوزع المساقات على 4 محاور أساسية:\n- أساليب تدريس المبحث\n- البيداغوجيا\n- الخبرة المدرسية (SEP)\n- معايير المعلمين المهنية وتصميم البيئة الصفية" },
-                { id: 5, q: "ما المقصود بالمقال التأملي (Reflective Essay) ودورة جيبس؟", a: "هو مقال أكاديمي يتأمل فيه الطالب تجربة تعليمية. ويُنظم عبر دورة جيبس التأملية بست مراحل: 1. الوصف، 2. المشاعر، 3. التقييم، 4. التحليل، 5. الاستنتاج، 6. خطة العمل." },
-                { id: 6, q: "ما الفرق بين المقال التحليلي والمقال النقدي والمقال النقدي التحليلي؟", a: "• المقال التحليلي: يفكك الموضوع لعناصره ويدرس أسبابها ونتائجها.\n• المقال النقدي: يقيّم الموضوع بصورة موضوعية بإبراز نقاط القوة والضعف.\n• المقال النقدي التحليلي: يجمع بين التحليل وتقييم العناصر وإصدار أحكام مبررة." },
-                { id: 7, q: "ما هي الأسئلة الأساسية التي يجب أن يطرحها الطالب في المقال النقدي التحليلي؟", a: "ما القضية؟ ما عناصرها؟ لماذا تحدث؟ كيف تؤثر في التعلم؟ ما نقاط قوتها ومحدوديتها؟ ما مدى فاعليتها؟ وما الأدلة التي تدعم الحكم وما الذي يمكن تحسينه؟" },
-                { id: 8, q: "ما هي أهداف وأنواع المبادرات المدرسية التي يمكن تقديمها؟", a: "تهدف لتقديم قيمة مضافة للمدرسة وتوظيف المعرفة النظرية. ومن أمثلتها: مبادرات القراءة، الدعم التعليمي، اللغة الإنجليزية، التكنولوجيا، البيئة المستدامة، والحد من التنمر." },
-                { id: 9, q: "ما هي الضوابط والقواعد المهنية خلال فترة الخبرة المدرسية (SEP)؟", a: "الالتزام بسجل الحضور، عدم التغيب أو المغادرة دون إذن، عدم تدريس الحصص إلا بحضور المعلم الرئيسي، استخدام أساليب تربوية إيجابية (منع العقاب البدني)، وحماية خصوصية الطلبة وسرية المعلومات." },
-                { id: 10, q: "ما المقصود بالأنشطة القبلية والبعدية والموجهة؟", a: "• الأنشطة القبلية: تُنجز قبل المحاضرة لتهيئة الطالب.\n• الأنشطة البعدية: تُنفيذ بعد المحاضرة لتعزيز التعلم ونقل الأثر.\n• الأنشطة الموجهة: مهام بتعليمات مباشرة ومحددة لتوفير السقالات التعليمية (Scaffolding) والتدريج من (أنا أفعل) إلى (أنت تفعل)." },
-                { id: 11, q: "ما هي شروط ومكونات ملف الإنجاز المهني الإلكتروني (E-Portfolio)؟", a: "يُصمم عبر برمجية Microsoft Sway ويُرفع كملف PDF على Google Drive. ويشمل: الغلاف، البيان الشخصي (350-500 كلمة)، وثائق التنظيم (عقد التوجيه، الحضور)، خطط الدروس، أدوات التقويم، التأملات، تقارير الإشراف، والمبادرة." },
-                { id: 12, q: "ما هي قواعد التوثيق العلمي بنظام APA 7 في مهام الدبلوم العالي؟", a: "إلزامية في المقالات والبحوث لترسيخ الأمانة العلمية وتجنب الانتحال. وتشمل التوثيق داخل المتن (اسم العائلة، السنة) وقائمة المراجع المرتبطة هجائياً مع تطبيق المسافة البادئة المعلقة." },
-                { id: 13, q: "ما هي تفاصيل المقال التأملي الثاني (التخطيط والتّدريس من أجل تعلّم فعّال)؟", a: "مقال مكون من 1000 كلمة يوضح كيف تطور فهم الطالب ونموه المهني خلال الفصل الأول بناءً على الخبرة الأولى وجلسات التعليم والأدب التربوي." },
-                { id: 14, q: "ما هو موضوع المقال التأملي الختامي الثالث (SEP 3)؟", a: "عنوانه \"المعلم المختص في مبحثه\" (عربي، إنجليزي، رياضيات، علوم)، وهو مقال ختامي شامل لتأمل نقدي لخبرات العام بأكمله دون الحاجة لوصف موقف جديد." }
-            ]
-        },
-        en: {
-            pageTitle: "Smart Assistant - Higher Diploma in Teacher Preparation | University of Jordan Aqaba",
-            mainTitle: "Smart Assistant for the Higher Diploma in Teacher Preparation",
-            subTitle: "The University of Jordan – Aqaba Branch",
-            facultyBadge: "School of Languages",
-            searchPlaceholder: "Search for any question or keyword (Gibbs, Portfolio, APA 7, SEP)...",
-            askMe: "Ask Me",
-            welcomeHead: "Welcome to the Higher Diploma Smart Assistant",
-            welcomeSub: "Enter your keyword in the search box above to view answers and details instantly.",
-            noResultText: "Sorry, no matching results found. Try using other simple keywords.",
-            footer: "All Rights Reserved © The University of Jordan - Aqaba Branch",
-            switchBtn: "العربية",
-            questionLabel: "Q #",
-            faqs: [
-                { id: 1, q: "Who is the President of the University of Jordan / Aqaba Branch and what is his email?", a: "The President of the University of Jordan Aqaba Branch is Prof. Saleh Al-Rawadieh.\nEmail: s.rawadieh@ju.edu.jo" },
-                { id: 2, q: "Who is the Director of the Higher Diploma in Teacher Preparation program in Aqaba, and how can I contact him?", a: "The program director is Dr. Abdulhameed Alawabdeh (Associate Professor in English Language and Literature / Applied Linguistics).\nEmail: a.alawabdeh@ju.edu.jo\nPhone: +96232090450" },
-                { id: 3, q: "What are the core criteria for a school initiative to be considered \"qualitative\" in the portfolio?", a: "It must address a real fieldwork problem, be sustainable, and use pre- and post-measurement tools to prove effectiveness." },
-                { id: 4, q: "What is Gibbs' Reflective Cycle in writing reflective essays?", a: "It consists of 6 stages: 1. Description, 2. Feelings, 3. Evaluation, 4. Analysis, 5. Conclusion, 6. Action Plan." },
-                { id: 5, q: "What is the Professional E-Portfolio requirement?", a: "Created using Microsoft Sway, including a personal statement, lesson plans, mentorship agreements, reflections, and school initiatives." },
-                { id: 6, q: "What are the APA 7 documentation rules required in the program?", a: "Mandatory for academic writing, essays, and action research to prevent plagiarism, using in-text citations and a reference list." }
-            ]
-        }
-    };
-
-    let fuse;
-
-    function initFuse() {
-        const currentFaqs = contentData[currentLang].faqs;
-        const options = {
-            keys: ['q', 'a'],
-            threshold: 0.4,
-            ignoreLocation: true
+        const contentData = {
+            ar: {
+                pageTitle: "المساعد الذكي - الدبلوم العالي لإعداد المعلمين | الجامعة الأردنية العقبة",
+                mainTitle: "المساعد الذكي لبرنامج الدبلوم العالي لإعداد المعلمين",
+                subTitle: "الجامعة الأردنية – فرع العقبة",
+                facultyBadge: "كلية اللغات",
+                searchPlaceholder: "ابحث عن أي سؤال أو كلمة مفتاحية (التخطيط، التقويم، جيبس، APA 7، ملف الإنجاز)...",
+                askMe: "اسألني",
+                welcomeHead: "مرحباً بك في المساعد الذكي لبرنامج الدبلوم العالي",
+                welcomeSub: "أدخل كلمتك المفتاحية في مربع البحث أعلاه لاستعراض الأجوبة والتفاصيل مباشرة.",
+                noResultText: "عذراً، لم يتم العثور على نتيجة مطابقة. جرب استخدام كلمات مفتاحية بسيطة أخرى.",
+                footer: "جميع الحقوق محفوظة © الجامعة الأردنية - فرع العقبة",
+                switchBtn: "English",
+                questionLabel: "سؤال #",
+                faqs: [
+                    { id: 1, q: "من هو رئيس الجامعة الأردنية / فرع العقبة وما هو بريده الإلكتروني؟", a: "رئيس الجامعة الأردنية فرع العقبة هو الأستاذ الدكتور صالح الرواضية.\nالبريد الإلكتروني: s.rawadieh@ju.edu.jo" },
+                    { id: 2, q: "من هو مدير برنامج الدبلوم العالي لإعداد المعلمين في فرع العقبة، وكيف يمكنني التواصل معه؟", a: "مدير البرنامج هو الدكتور عبد الحميد العوابدة (أستاذ مشارك في قسم اللغة الإنجليزية وآدابها / اللغة الإنجليزية التطبيقية).\nالبريد الإلكتروني: a.alawabdeh@ju.edu.jo\nالهاتف: +96232090450" },
+                    { id: 3, q: "لماذا يُتوقع من الطالب المعلم المشاركة الفاعلة في المحاضرات؟", a: "لأن برنامج إعداد المعلمين لا يعتمد على اكتساب المعرفة النظرية فقط، بل يتطلب تطوير مهارات التواصل والتفكير والتحليل والتعاون واتخاذ القرارات التعليمية. كما أن المشاركة تساعده على اختبار أفكاره وتبادل الخبرات." },
+                    { id: 4, q: "ما أهمية العمل الجماعي والتعلم التعاوني؟", a: "يساعد على تنمية مهارات التواصل، وتبادل الأفكار والخبرات، واحترام وجهات النظر المختلفة، وتحمل المسؤولية المشتركة، والتدرب على استراتيجيات يمكن توظيفها لاحقاً مع الطلبة." },
+                    { id: 5, q: "ما المقصود بالتعلم القائم على حل المشكلات (Problem-Based Learning)؟", a: "مدخل تعليمي يبدأ بتقديم مشكلة أو موقف واقعي أو افتراضي، ثم يعمل المتعلمون على فهمها وتحليلها والبحث عن المعلومات واقتراح الحلول لتنمية التفكير الناقد والتعلم المستقل." },
+                    { id: 6, q: "كيف يمكن للطالب المعلم تقديم تغذية راجعة بنّاءة لزملائه؟", a: "بأن تكون محددة وموضوعية ومحترمة تركز على الأداء وليس الشخص، مع توضيح جوانب القوة أولاً ثم تحديد الجوانب التي تحتاج لتحسين بتقديم اقتراحات عملية قابلة للتطبيق." },
+                    { id: 7, q: "ما المقصود بالتخطيط للتدريس (Lesson Planning) وما عناصره الأساسية؟", a: "عملية منظمة يحدد المعلم من خلالها ما يريد أن يتعلمه الطلبة وكيف سيُدرّس المحتوى والموارد والتقويم. وتشمل عناصره: بيانات الدرس، نواتج التعلم، المحتوى، الاستراتيجيات، الأنشطة، الموارد، التقويم، ومراعاة الفروق الفردية." },
+                    { id: 8, q: "ما الفرق بين الأهداف التعليمية ونواتج التعلم؟", a: "• الأهداف التعليمية: مقاصد عامة يسعى المعلم لتحقيقها.\n• نواتج التعلم: تماثل ما يُتوقع أن يكون المتعلم قادراً على معرفته أو أدائه بعد التعلم، وتكون أكثر تحديداً وقابلية للقياس." },
+                    { id: 9, q: "كيف يُصمم المعلم أسئلة تقيس مهارات التفكير العليا؟", a: "بأن تتجاوز استرجاع المعلومات لتتطلب التطبيق والتحليل والتقييم والإبداع (باستخدام أفعال مثل: حلل، قارن، برر، قيّم، استنتج، اقترح، صمم)." },
+                    { id: 10, q: "ما الفرق بين التقويم التكويني والتقويم الختامي؟", a: "• التقويم التكويني: عملية مستمرة أثناء التعلم لمتابعة التقدم والكشف عن الصعوبات وتقديم التغذية الراجعة (مثل بطاقات الخروج والاختبارات القصيرة).\n• التقويم الختامي: يُستخدم في نهاية وحدة أو مساق للحكم على مستوى تحقق نواتج التعلم ورصد الدرجات." },
+                    { id: 11, q: "ما خصائص التغذية الراجعة الفاعلة؟", a: "أن تكون واضحة ومحددة، مرتبطة بنواتج التعلم، مقدمة في الوقت المناسب، موضوعية، بنّاءة وتحترم المتعلم، تتضمن إرشادات عملية، وتركز على الأداء لا على الشخص." },
+                    { id: 12, q: "ما الفرق بين إدارة الصف وضبط الصف؟", a: "• إدارة الصف: مفهوم شامل يتضمن التخطيط والتنظيم وبناء العلاقات وإدارة الوقت والأنشطة والسلوكيات.\n• ضبط الصف: يركز أكثر على التعامل مع السلوكيات غير المرغوبة والمحافظة على النظام (وهو جزء من إدارة الصف)." },
+                    { id: 13, q: "ما المقصود بالتعليم الدامج (Inclusive Education) والتعليم المتمايز؟", a: "• التعليم الدامج: توفير فرص تعلم عادلة ومناسبة لجميع الطلبة مع إزالة الحواجز المعيقة لمشاركتهم.\n• التعليم المتمايز: نهج يكيّف فيه المعلم المحتوى والأنشطة والموارد وفق استعدادات الطلبة واهتماماتهم." },
+                    { id: 14, q: "كيف يمكن توظيف التكنولوجيا وأدوات الذكاء الاصطناعي في التعليم؟", a: "بتوظيف أدوات تفاعلية مثل Mentimeter وQuizizz لعرض المحتوى وجمع الآراء والتقييم، واستخدام الذكاء الاصطناعي التوليدي لمساعدة المعلم في التخطيط وإعداد الأنشطة مع ضرورة التحقق من دقة وموثوقية المخرجات." },
+                    { id: 15, q: "ما مكونات المقال الأكاديمي وما قواعد الأمانة العلمية؟", a: "يتكون من المقدمة، المتن، الخاتمة، والمراجع. ويتطلب تزاماً كاملاً بالأمانة العلمية وتجنب الانتحال (Plagiarism) عبر توثيق المصادر بدقة." },
+                    { id: 16, q: "ما دور كل من المعلم الرئيسي والمشرف الأكاديمي في الخبرة المدرسية؟", a: "• المعلم الرئيسي (Mentor): يتولى توجيه الطالب المعلم ومتابعته داخل المدرسة وتقديم التغذية الراجعة المهنية.\n• المشرف الأكاديمي (Academic Supervisor): يتابع تقدم الطالب ومدى تحقيقه لمتطلبات البرنامج وتقديم الإرشاد الأكاديمي." },
+                    { id: 17, q: "ما المقصود بالتدريس المصغر وملف الإنجاز المهني؟", a: "• التدريس المصغر: ممارسة تدريبية لتقديم درس قصير أمام الزملاء لاكتساب مهارات التدريس.\n• ملف الإنجاز المهني: مجموعة منظمة من الوثائق والشواهد والتحليلات والتأملات التي توضح تطور الكفايات المهنية للطالب المعلم." },
+                    { id: 18, q: "ما هو الهيكل المقترح والنقاط التي يجب أن تتضمنها المقالة الكاملة الثانية (التخطيط والتّدريس من أجل تعلّم فعّال)؟", a: "يجب أن تنظم المقالة بشكل متسلسل وبنيوي واضح بحيث تغطي النقاط الآتية:\n- جلسات التعليم على مدار الفصل.\n- المقالة التأملية في الخبرة المدرسية الأولى مستفيداً من التغذية الراجعة المقدمة عليها.\n- الأدب التربوي المتعلق بالموضوع، ومعايير المعلمين، والخبرة الشخصية." },
+                    { id: 19, q: "ما هو موضوع المقال التأملي للخبرة المدرسية الثالثة (الختامي)؟", a: "عنوانه \"المعلم المختص في مبحثه (اللغة العربية أو اللغة الإنجليزية أو الرياضيات أو العلوم...)\". وهو مقال ختامي شامل يُطلب فيه من الطالب المعلم تقديم تأمل نقدي شامل عن خبراته التعليمية خلال العام بأكمله، بما في ذلك ما تعلمه في الخبرة المدرسية الثالثة دون الحاجة لوصف موقف مؤثر آخر." }
+                ]
+            },
+            en: {
+                pageTitle: "Smart Assistant - Higher Diploma in Teacher Preparation | University of Jordan Aqaba",
+                mainTitle: "Smart Assistant for the Higher Diploma in Teacher Preparation",
+                subTitle: "The University of Jordan – Aqaba Branch",
+                facultyBadge: "School of Languages",
+                searchPlaceholder: "Search for any question or keyword (Planning, Assessment, Management)...",
+                askMe: "Ask Me",
+                welcomeHead: "Welcome to the Higher Diploma Smart Assistant",
+                welcomeSub: "Enter your keyword in the search box above to view answers and details instantly.",
+                noResultText: "Sorry, no matching results found. Try using other simple keywords.",
+                footer: "All Rights Reserved © The University of Jordan - Aqaba Branch",
+                switchBtn: "العربية",
+                questionLabel: "Q #",
+                faqs: [
+                    { id: 1, q: "Who is the President of the University of Jordan / Aqaba Branch and what is his email?", a: "The President of the University of Jordan Aqaba Branch is Prof. Saleh Al-Rawadieh.\nEmail: s.rawadieh@ju.edu.jo" },
+                    { id: 2, q: "Who is the Director of the Higher Diploma in Teacher Preparation program in Aqaba, and how can I contact him?", a: "The program director is Dr. Abdulhameed Alawabdeh (Associate Professor in English Language and Literature / Applied Linguistics).\nEmail: a.alawabdeh@ju.edu.jo\nPhone: +96232090450" },
+                    { id: 3, q: "What is the core definition of Lesson Planning and its key components?", a: "A systematic process where a teacher defines learning objectives, teaching strategies, activities, resources, and assessment methods." },
+                    { id: 4, q: "What is the difference between Formative and Summative Assessment?", a: "Formative assessment is ongoing during learning to provide feedback, while summative assessment evaluates student learning at the end of an instructional unit." },
+                    { id: 5, q: "What is Inclusive and Differentiated Education?", a: "Providing fair learning opportunities for all students while adapting teaching content, activities, and resources to meet individual student needs." },
+                    { id: 6, q: "What is the role of the Mentor Teacher and Academic Supervisor during school experience?", a: "The Mentor Teacher guides the student teacher in school, while the Academic Supervisor monitors overall academic progress and requirements." }
+                ]
+            }
         };
-        fuse = new Fuse(currentFaqs, options);
-    }
 
-    function toggleLanguage() {
-        currentLang = currentLang === 'ar' ? 'en' : 'ar';
-        const htmlRoot = document.getElementById('htmlRoot');
-        htmlRoot.setAttribute('dir', currentLang === 'ar' ? 'rtl' : 'ltr');
-        htmlRoot.setAttribute('lang', currentLang);
+        let fuse;
 
-        const data = contentData[currentLang];
-        document.getElementById('pageTitle').innerText = data.pageTitle;
-        document.getElementById('mainTitle').innerText = data.mainTitle;
-        document.getElementById('subTitle').innerText = data.subTitle;
-        document.getElementById('facultyBadge').innerText = data.facultyBadge;
-        document.getElementById('searchInput').placeholder = data.searchPlaceholder;
-        document.getElementById('askMeText').innerText = data.askMe;
-        document.getElementById('welcomeHeader').innerText = data.welcomeHead;
-        document.getElementById('welcomeSub').innerText = data.welcomeSub;
-        document.getElementById('noResultText').innerText = data.noResultText;
-        document.getElementById('footerText').innerText = data.footer;
-        document.getElementById('langSwitchBtn').innerText = data.switchBtn;
+        function initFuse() {
+            const currentFaqs = contentData[currentLang].faqs;
+            const options = {
+                keys: ['q', 'a'],
+                threshold: 0.4,
+                ignoreLocation: true
+            };
+            fuse = new Fuse(currentFaqs, options);
+        }
 
-        initFuse();
-        searchFAQ();
-    }
+        function toggleLanguage() {
+            currentLang = currentLang === 'ar' ? 'en' : 'ar';
+            const htmlRoot = document.getElementById('htmlRoot');
+            htmlRoot.setAttribute('dir', currentLang === 'ar' ? 'rtl' : 'ltr');
+            htmlRoot.setAttribute('lang', currentLang);
 
-    function searchFAQ() {
-        const query = document.getElementById('searchInput').value.trim();
-        const container = document.getElementById('faqContainer');
-        const placeholder = document.getElementById('placeholder');
-        const noResult = document.getElementById('noResult');
-        const stats = document.getElementById('stats');
-        const data = contentData[currentLang];
+            const data = contentData[currentLang];
+            document.getElementById('pageTitle').innerText = data.pageTitle;
+            document.getElementById('mainTitle').innerText = data.mainTitle;
+            document.getElementById('subTitle').innerText = data.subTitle;
+            document.getElementById('facultyBadge').innerText = data.facultyBadge;
+            document.getElementById('searchInput').placeholder = data.searchPlaceholder;
+            document.getElementById('askMeText').innerText = data.askMe;
+            document.getElementById('welcomeHeader').innerText = data.welcomeHead;
+            document.getElementById('welcomeSub').innerText = data.welcomeSub;
+            document.getElementById('noResultText').innerText = data.noResultText;
+            document.getElementById('footerText').innerText = data.footer;
+            document.getElementById('langSwitchBtn').innerText = data.switchBtn;
 
-        container.innerHTML = '';
+            initFuse();
+            searchFAQ();
+        }
 
-        if (query === '') {
-            placeholder.style.display = 'flex';
+        function searchFAQ() {
+            const query = document.getElementById('searchInput').value.trim();
+            const container = document.getElementById('faqContainer');
+            const placeholder = document.getElementById('placeholder');
+            const noResult = document.getElementById('noResult');
+            const stats = document.getElementById('stats');
+            const data = contentData[currentLang];
+
+            container.innerHTML = '';
+
+            if (query === '') {
+                placeholder.style.display = 'flex';
+                noResult.style.display = 'none';
+                stats.style.display = 'none';
+                return;
+            }
+
+            placeholder.style.display = 'none';
+            const results = fuse.search(query);
+
+            if (results.length === 0) {
+                noResult.style.display = 'block';
+                stats.style.display = 'none';
+                return;
+            }
+
             noResult.style.display = 'none';
-            stats.style.display = 'none';
-            return;
+            stats.style.display = 'block';
+            stats.innerText = currentLang === 'ar' ? `تم العثور على ${results.length} نتيجة مطابقة` : `Found ${results.length} matching result(s)`;
+
+            results.forEach(res => {
+                const item = res.item;
+                const div = document.createElement('div');
+                div.className = 'faq-item';
+                div.innerHTML = `
+                    <div class="question">
+                        <span class="badge">${data.questionLabel}${item.id}</span>
+                        <span>${item.q}</span>
+                    </div>
+                    <div class="answer">${item.answer}</div>
+                `;
+                container.appendChild(div);
+            });
         }
 
-        placeholder.style.display = 'none';
-        const results = fuse.search(query);
-
-        if (results.length === 0) {
-            noResult.style.display = 'block';
-            stats.style.display = 'none';
-            return;
-        }
-
-        noResult.style.display = 'none';
-        stats.style.display = 'block';
-        stats.innerText = currentLang === 'ar' ? `تم العثور على ${results.length} نتيجة مطابقة` : `Found ${results.length} matching result(s)`;
-
-        results.forEach(res => {
-            const item = res.item;
-            const div = document.createElement('div');
-            div.className = 'faq-item';
-            div.innerHTML = `
-                <div class="question">
-                    <span class="badge">${data.questionLabel}${item.id}</span>
-                    <span>${item.q}</span>
-                </div>
-                <div class="answer">${item.answer}</div>
-            `;
-            container.appendChild(div);
-        });
-    }
-
-    window.onload = function() {
-        initFuse();
-    };
-</script>
+        window.onload = function() {
+            initFuse();
+        };
+    </script>
+</body>
+</html>
