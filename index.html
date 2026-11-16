@@ -52,15 +52,12 @@
         
         .body-content { padding: 20px; }
         
-        .search-bar { position: sticky; top: 8px; z-index: 50; background: #fff; padding: 8px 0; }
+        .search-bar { position: sticky; top: 8px; z-index: 50; background: #fff; padding: 8px 0 15px 0; }
         .search-input { width: 100%; padding: 14px 18px; font-size: 15px; border: 2px solid var(--border); border-radius: 14px; outline: none; background: #f8fafc; transition: 0.25s; }
         .search-input:focus { border-color: var(--accent); background: #fff; box-shadow: 0 0 0 4px rgba(37,99,235,0.12); }
         
-        .controls { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 16px; }
-        .cat-btn { background: #f1f5f9; color: var(--primary); border: 1px solid #cbd5e1; padding: 6px 14px; border-radius: 20px; font-size: 12.5px; font-weight: 700; cursor: pointer; transition: 0.2s; }
-        .cat-btn:hover, .cat-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
-        
-        .stats-bar { font-size: 13px; font-weight: 700; color: var(--primary-light); margin-bottom: 14px; padding: 8px 12px; background: #eff6ff; border-radius: 10px; border-right: 4px solid var(--accent); display: none; }
+        /* إخفاء الأزرار وشريط الإحصائيات نهائياً */
+        .controls, .stats-bar { display: none !important; }
         
         .placeholder-card { 
             display: flex;
@@ -117,8 +114,6 @@
                 <input type="text" id="searchInput" class="search-input" placeholder="ابحث بالكلمة المفتاحية أو رقم السؤال (مثال: س395، المقال التأملي، أعضاء الهيئة التدريسية)..." oninput="filterFAQs()">
             </div>
 
-            <div class="controls" id="categoryButtons"></div>
-
             <div id="welcomeCard" class="placeholder-card">
                 <img src="روبرت.png" alt="شخصية الروبوت" class="robot-img-welcome" onerror="this.style.display='none'">
                 <div class="welcome-text-content">
@@ -127,7 +122,6 @@
                 </div>
             </div>
 
-            <div class="stats-bar" id="statsBar"></div>
             <div id="faqList"></div>
             <div class="no-results" id="noResults">عذراً، لا توجد نتائج مطابقة لبحثك.</div>
 
@@ -170,32 +164,13 @@ const faqDatabase = [
     { id: 405, cat: "المقالات التأملية", q: "ما هي أبرز الأسئلة الاستشادية التي يمكن للطالب الاستفادة منها عند التخطيط لمقال الخبرة الثالثة؟", a: "- ما فهمك الشخصي لما يعنيه أن تكون \"معلماً مختصاً في مبحثك\" وكيف تطور؟\n- ما العادات أو الافتراضات السابقة التي تغيرت لديك؟\n- ما المعرفة والمهارات والفهم المطلوب لك بصفتك معلماً مختصاً؟\n- ما نقاط القوة ومجالات التطوير في نهاية العام الدراسي وكيف تخطط لتنميتها؟" }
 ];
 
-let selectedCategory = "الكل";
-
 function initApp() {
-    renderCategories();
-    filterFAQs();
-}
-
-function renderCategories() {
-    const categories = ["الكل", ...new Set(faqDatabase.map(item => item.cat))];
-    const container = document.getElementById("categoryButtons");
-    if (!container) return;
-    container.innerHTML = categories.map(cat => 
-        `<button class="cat-btn ${cat === selectedCategory ? 'active' : ''}" onclick="selectCategory('${cat}')">${cat}</button>`
-    ).join("");
-}
-
-function selectCategory(cat) {
-    selectedCategory = cat;
-    renderCategories();
     filterFAQs();
 }
 
 function filterFAQs() {
     const searchInput = document.getElementById("searchInput");
     const listContainer = document.getElementById("faqList");
-    const statsBar = document.getElementById("statsBar");
     const noResults = document.getElementById("noResults");
     const welcomeCard = document.getElementById("welcomeCard");
 
@@ -204,7 +179,7 @@ function filterFAQs() {
     const query = searchInput.value.trim().toLowerCase();
 
     if (welcomeCard) {
-        if (query === '' && selectedCategory === 'الكل') {
+        if (query === '') {
             welcomeCard.style.display = 'flex';
         } else {
             welcomeCard.style.display = 'none';
@@ -212,27 +187,21 @@ function filterFAQs() {
     }
 
     const filtered = faqDatabase.filter(item => {
-        const matchesCat = (selectedCategory === "الكل" || item.cat === selectedCategory);
         const matchesQuery = query === "" || 
                              item.q.toLowerCase().includes(query) || 
                              item.a.toLowerCase().includes(query) ||
                              ("س" + item.id).includes(query) ||
                              String(item.id) === query;
-        return matchesCat && matchesQuery;
+        return matchesQuery;
     });
 
     if (filtered.length === 0) {
         listContainer.innerHTML = "";
-        if (statsBar) statsBar.style.display = "none";
         if (noResults) noResults.style.display = "block";
         return;
     }
 
     if (noResults) noResults.style.display = "none";
-    if (statsBar) {
-        statsBar.style.display = "block";
-        statsBar.innerText = `إجمالي الأسئلة المعروضة: ${filtered.length} سؤال مع إجابته الكاملة`;
-    }
 
     listContainer.innerHTML = filtered.map(item => `
         <div class="faq-card">
