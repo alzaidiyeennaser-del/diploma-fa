@@ -120,7 +120,7 @@
             </div>
 
             <div id="faqList"></div>
-            <div class="no-results" id="noResults">عذراً، لا توجد نتائج مطابقة لبحثك.</div>
+            <div class="no-results" id="noResults" style="display: none;">عذراً، لا توجد نتائج مطابقة لبحثك.</div>
 
             <div class="footer">جميع الحقوق محفوظة © الجامعة الأردنية - فرع العقبة</div>
         </div>
@@ -161,10 +161,6 @@ const faqDatabase = [
     { id: 405, cat: "المقالات التأملية", q: "ما هي أبرز الأسئلة الاستشادية التي يمكن للطالب الاستفادة منها عند التخطيط لمقال الخبرة الثالثة؟", a: "- ما فهمك الشخصي لما يعنيه أن تكون \"معلماً مختصاً في مبحثك\" وكيف تطور؟\n- ما العادات أو الافتراضات السابقة التي تغيرت لديك؟\n- ما المعرفة والمهارات والفهم المطلوب لك بصفتك معلماً مختصاً؟\n- ما نقاط القوة ومجالات التطوير في نهاية العام الدراسي وكيف تخطط لتنميتها؟" }
 ];
 
-function initApp() {
-    filterFAQs();
-}
-
 function filterFAQs() {
     const searchInput = document.getElementById("searchInput");
     const listContainer = document.getElementById("faqList");
@@ -175,21 +171,22 @@ function filterFAQs() {
 
     const query = searchInput.value.trim().toLowerCase();
 
-    if (welcomeCard) {
-        if (query === '') {
-            welcomeCard.style.display = 'flex';
-        } else {
-            welcomeCard.style.display = 'none';
-        }
+    // إذا كانت خانة البحث فارغة تماماً، نخفي النتائج ونعرض بطاقة الترحيب والروبوت فقط
+    if (query === '') {
+        if (welcomeCard) welcomeCard.style.display = 'flex';
+        listContainer.innerHTML = '';
+        if (noResults) noResults.style.display = 'none';
+        return;
     }
 
+    // إذا بدأ المستخدم بالكتابة، نخفي بطاقة الترحيب ونبحث في القاعدة
+    if (welcomeCard) welcomeCard.style.display = 'none';
+
     const filtered = faqDatabase.filter(item => {
-        const matchesQuery = query === "" || 
-                             item.q.toLowerCase().includes(query) || 
-                             item.a.toLowerCase().includes(query) ||
-                             ("س" + item.id).includes(query) ||
-                             String(item.id) === query;
-        return matchesQuery;
+        return item.q.toLowerCase().includes(query) || 
+               item.a.toLowerCase().includes(query) ||
+               ("س" + item.id).includes(query) ||
+               String(item.id) === query;
     });
 
     if (filtered.length === 0) {
@@ -212,7 +209,11 @@ function filterFAQs() {
     `).join("");
 }
 
-window.onload = initApp;
+window.onload = function() {
+    // التأكد من تفريغ القائمة عند فتح الصفحة لأول مرة
+    const listContainer = document.getElementById("faqList");
+    if (listContainer) listContainer.innerHTML = '';
+};
 </script>
 
 </body>
