@@ -23,24 +23,74 @@
         body { background: var(--bg); min-height: 100vh; padding: 15px; color: var(--text); display: flex; justify-content: center; }
         .wrapper { max-width: 980px; width: 100%; border-radius: 22px; padding: 3px; background: linear-gradient(135deg, #2563eb, #d97706, #3b82f6); box-shadow: 0 15px 35px rgba(0,0,0,0.45); height: fit-content; }
         .container { background: var(--card); border-radius: 19px; overflow: hidden; padding-bottom: 25px; }
-        .header { text-align: center; padding: 35px 20px 28px; background: linear-gradient(135deg, #0d233a 0%, #1e3a8a 100%); color: #fff; }
+        
+        .header { 
+            text-align: center; 
+            padding: 35px 20px 28px; 
+            background: linear-gradient(135deg, #0d233a 0%, #1e3a8a 100%); 
+            color: #fff; 
+            position: relative;
+        }
+        
+        .header-logo-right,
+        .header-logo-left {
+            position: absolute;
+            top: 15px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 6px 10px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+        }
+        .header-logo-right { right: 15px; }
+        .header-logo-left { left: 15px; }
+        .logo-img { max-height: 50px; width: auto; object-fit: contain; display: block; }
+
         .header h1 { font-size: 21px; font-weight: 800; margin-bottom: 6px; }
         .header .sub { color: #fde047; font-size: 15px; font-weight: 700; }
         .header .badge-uni { display: inline-block; margin-top: 8px; background: rgba(255,255,255,0.15); padding: 4px 14px; border-radius: 20px; font-size: 12px; }
+        
         .body-content { padding: 20px; }
+        
         .search-bar { position: sticky; top: 8px; z-index: 50; background: #fff; padding: 8px 0; }
         .search-input { width: 100%; padding: 14px 18px; font-size: 15px; border: 2px solid var(--border); border-radius: 14px; outline: none; background: #f8fafc; transition: 0.25s; }
         .search-input:focus { border-color: var(--accent); background: #fff; box-shadow: 0 0 0 4px rgba(37,99,235,0.12); }
+        
         .controls { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 16px; }
         .cat-btn { background: #f1f5f9; color: var(--primary); border: 1px solid #cbd5e1; padding: 6px 14px; border-radius: 20px; font-size: 12.5px; font-weight: 700; cursor: pointer; transition: 0.2s; }
         .cat-btn:hover, .cat-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+        
         .stats-bar { font-size: 13px; font-weight: 700; color: var(--primary-light); margin-bottom: 14px; padding: 8px 12px; background: #eff6ff; border-radius: 10px; border-right: 4px solid var(--accent); }
+        
+        /* قسم الترحيب والروبوت */
+        .placeholder-card { 
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            text-align: right; 
+            padding: 20px; 
+            background: linear-gradient(135deg, #f8fafc 0%, #eff6ff 100%); 
+            border-radius: 16px; 
+            border: 1.5px solid #cbd5e0; 
+            margin-bottom: 15px; 
+        }
+        .robot-img-welcome {
+            width: 120px;
+            height: 130px;
+            object-fit: contain;
+            display: block;
+            flex-shrink: 0;
+        }
+        .welcome-text-content strong { font-size: 16px; color: var(--primary); display: block; margin-bottom: 5px; }
+        .welcome-text-content span { font-size: 13.5px; color: #334155; line-height: 1.6; }
+
         .faq-card { background: #fff; border: 1px solid var(--border); border-radius: 14px; padding: 16px 18px; margin-bottom: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.03); border-right: 4px solid var(--secondary); }
         .faq-header { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
         .q-num { background: #eff6ff; color: var(--primary-light); border: 1px solid #bfdbfe; padding: 2px 9px; border-radius: 8px; font-size: 12px; font-weight: 800; }
         .q-cat { background: #fef3c7; color: #92400e; padding: 2px 8px; border-radius: 8px; font-size: 11px; font-weight: 700; }
         .q-text { font-size: 15.5px; font-weight: 800; color: var(--primary); line-height: 1.5; width: 100%; margin-top: 4px; }
         .a-text { font-size: 14px; color: #334155; line-height: 1.8; background: #f8fafc; padding: 12px 15px; border-radius: 10px; border: 1px solid #e2e8f0; white-space: pre-line; display: block !important; }
+        
         .no-results { text-align: center; padding: 25px; background: #fef2f2; color: #991b1b; border-radius: 12px; font-weight: 700; display: none; }
         .footer { text-align: center; margin-top: 25px; padding-top: 15px; border-top: 1px solid var(--border); font-size: 12px; color: var(--muted); }
     </style>
@@ -49,7 +99,16 @@
 
 <div class="wrapper">
     <div class="container">
+        <!-- الهيدر مع الشعارات -->
         <div class="header">
+            <div class="header-logo-right">
+                <img src="شعار.png" alt="شعار الجامعة" class="logo-img" onerror="this.style.display='none'">
+            </div>
+            
+            <div class="header-logo-left">
+                <img src="شعار وحدة الجودة.png" alt="شعار وحدة الجودة" class="logo-img" onerror="this.style.display='none'">
+            </div>
+
             <h1>المساعد الذكي لبرنامج الدبلوم العالي لإعداد المعلمين</h1>
             <div class="sub">الجامعة الأردنية – فرع العقبة</div>
             <div class="badge-uni">كلية اللغات | بنك الأسئلة والأجوبة الشامل</div>
@@ -61,6 +120,16 @@
             </div>
 
             <div class="controls" id="categoryButtons"></div>
+
+            <!-- بطاقة الترحيب مع صورة الروبوت -->
+            <div id="welcomeCard" class="placeholder-card">
+                <img src="روبرت.png" alt="شخصية الروبوت" class="robot-img-welcome" onerror="this.style.display='none'">
+                <div class="welcome-text-content">
+                    <strong>مرحباً بك في المساعد الذكي لبرنامج الدبلوم العالي</strong>
+                    <span>أدخل كلمتك المفتاحية في مربع البحث أعلاه لاستعراض الأجوبة والتفاصيل مباشرة من قاعدة المعرفة الشاملة.</span>
+                </div>
+            </div>
+
             <div class="stats-bar" id="statsBar"></div>
             <div id="faqList"></div>
             <div class="no-results" id="noResults">عذراً، لا توجد نتائج مطابقة لبحثك.</div>
@@ -130,6 +199,14 @@ function filterFAQs() {
     const listContainer = document.getElementById("faqList");
     const statsBar = document.getElementById("statsBar");
     const noResults = document.getElementById("noResults");
+    const welcomeCard = document.getElementById("welcomeCard");
+
+    // إخفاء بطاقة الترحيب والروبوت عند بدء البحث، أو إظهارها إذا كان البحث فارغاً
+    if (query === '' && selectedCategory === 'الكل') {
+        welcomeCard.style.display = 'flex';
+    } else {
+        welcomeCard.style.display = 'none';
+    }
 
     const filtered = faqDatabase.filter(item => {
         const matchesCat = (selectedCategory === "الكل" || item.cat === selectedCategory);
@@ -144,28 +221,4 @@ function filterFAQs() {
     if (filtered.length === 0) {
         listContainer.innerHTML = "";
         statsBar.style.display = "none";
-        noResults.style.display = "block";
-        return;
-    }
-
-    noResults.style.display = "none";
-    statsBar.style.display = "block";
-    statsBar.innerText = `إجمالي الأسئلة المعروضة: ${filtered.length} سؤال مع إجابته الكاملة`;
-
-    listContainer.innerHTML = filtered.map(item => `
-        <div class="faq-card">
-            <div class="faq-header">
-                <span class="q-num">س${item.id}</span>
-                <span class="q-cat">${item.cat}</span>
-                <div class="q-text">${item.q}</div>
-            </div>
-            <div class="a-text"><strong>الإجابة:</strong>\n${item.a}</div>
-        </div>
-    `).join("");
-}
-
-window.onload = initApp;
-</script>
-
-</body>
-</html>
+        noResults.style.
